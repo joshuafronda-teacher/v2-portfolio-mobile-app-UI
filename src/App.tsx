@@ -491,16 +491,6 @@ const ProjectsScreen = () => {
                 <span className="font-mono text-xs text-neutral-300">0{idx + 1}</span>
               </div>
               <div className="flex gap-2">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setCarouselProject(project);
-                  }}
-                  className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors"
-                  title="View Screenshots"
-                >
-                  <Camera size={16} className="text-white" />
-                </button>
                 <div className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:bg-white transition-colors">
                   <ArrowUpRight size={20} className="text-white group-hover:text-black transition-colors" />
                 </div>
