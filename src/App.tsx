@@ -5,6 +5,13 @@
 
 import React, { useState, useEffect } from 'react';
 import profileImage from './img/v1.jpg';
+import Careconnect from './img/CareConnect.png';
+import Easytizen from './img/Easytizen.png';
+import MuniManage from './img/MuniManage.png';
+import SentinelFlow from './img/SentinelFlow.png';
+import ShinyText from './ShinyText';
+import LogoLoop from '../components/LogoLoop';
+import Lanyard from './Lanyard';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Home, 
@@ -20,8 +27,33 @@ import {
   MapPin,
   CircleDot,
   Camera,
-  X
+  X,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
+
+// --- Skills Data for LogoLoop ---
+const SKILL_LOGOS = [
+  { node: <span className="text-white font-semibold">HTML</span>, title: "HTML" },
+  { node: <span className="text-blue-400 font-semibold">CSS</span>, title: "CSS" },
+  { node: <span className="text-yellow-400 font-semibold">JS</span>, title: "JavaScript" },
+  { node: <span className="text-blue-500 font-semibold">TS</span>, title: "TypeScript" },
+  { node: <span className="text-cyan-400 font-semibold">React</span>, title: "React" },
+  { node: <span className="text-teal-400 font-semibold">Tailwind</span>, title: "Tailwind CSS" },
+  { node: <span className="text-blue-600 font-semibold">Flutter</span>, title: "Flutter" },
+  { node: <span className="text-purple-400 font-semibold">Vite</span>, title: "Vite" },
+  { node: <span className="text-green-500 font-semibold">Python</span>, title: "Python" },
+  { node: <span className="text-green-600 font-semibold">Django</span>, title: "Django" },
+  { node: <span className="text-purple-600 font-semibold">PHP</span>, title: "PHP" },
+  { node: <span className="text-blue-700 font-semibold">WordPress</span>, title: "WordPress" },
+  { node: <span className="text-green-700 font-semibold">Nginx</span>, title: "Nginx" },
+  { node: <span className="text-orange-500 font-semibold">MySQL</span>, title: "MySQL" },
+  { node: <span className="text-blue-800 font-semibold">PostgreSQL</span>, title: "PostgreSQL" },
+  { node: <span className="text-green-800 font-semibold">MongoDB</span>, title: "MongoDB" },
+  { node: <span className="text-red-500 font-semibold">Git</span>, title: "Git" },
+  { node: <span className="text-orange-600 font-semibold">Ubuntu</span>, title: "Ubuntu" },
+  { node: <span className="text-yellow-500 font-semibold">Firebase</span>, title: "Firebase" },
+];
 
 // --- Types & Data ---
 
@@ -30,7 +62,7 @@ type TabId = 'home' | 'projects' | 'profile' | 'certs';
 const PORTFOLIO_DATA = {
   name: "Joshua Fronda",
   photo: profileImage,
-  role: "BSIT Major in Business Analytics",
+  role: "Developer",
   location: "Batangas, PH",
   status: "IT/CS Instructor",
   bio: "A dedicated and results-driven professional with experience in web and mobile development.",
@@ -41,31 +73,46 @@ const PORTFOLIO_DATA = {
       title: 'EASYtizen',
       category: 'Web & Mobile App',
       desc: 'An Integrated Web and Mobile Application for Document Requests and Data Analytics. Experience the future of barangay management with our innovative digital platform.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
+      images: [Easytizen],
+      link: 'https://fir-config-6ca5c.web.app/',
     },
     {
       id: 'p2',
       title: 'Muni-Manage',
       category: 'Dashboard',
       desc: 'Municipal management and developer dashboard for local government operations.',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
+      images: [MuniManage],
+      link: 'https://muni-manage.vercel.app/',
     },
     {
       id: 'p3',
       title: 'CareConnect + Pay',
       category: 'Healthcare Platform',
       desc: 'Healthcare and payments platform with developer-focused tools.',
-      image: 'https://images.unsplash.com/photo-1576091160399-11cbbe989951?auto=format&fit=crop&w=800&q=80',
+      images: [Careconnect],
+      link: 'https://careconnect-iota.vercel.app/',
     },
     {
       id: 'p4',
       title: 'Sentinel Flow',
       category: 'Observability',
       desc: 'Observability and workflow platform with developer dashboard.',
-      image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80',
+      images: [SentinelFlow],
+      link: 'https://sentinel-flow.vercel.app/',
     }
   ],
   experience: [
+    { 
+      role: 'Freelance Developer', 
+      company: 'Self-Employed', 
+      year: '2025 - PRESENT',
+      details: [
+        'Developing custom web and mobile applications for clients',
+        'Providing technical consulting and solutions',
+        'Managing full project lifecycle from design to deployment',
+        'Working with modern technologies and best practices'
+      ]
+    },
     { 
       role: 'IT/CS Instructor', 
       company: 'Batangas State University TNEU - Alangilan Campus', 
@@ -142,6 +189,117 @@ const fadeUpVariant = {
   }
 };
 
+// --- Carousel Component ---
+const ProjectCarousel = ({ images, isOpen, onClose }: { images: any[], isOpen: boolean, onClose: () => void }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextImage = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-6"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.9, y: 20, opacity: 0 }}
+        animate={{ scale: 1, y: 0, opacity: 1 }}
+        exit={{ scale: 0.9, y: 20, opacity: 0 }}
+        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        className="relative w-full max-w-4xl aspect-video rounded-[2rem] overflow-hidden glass-card shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={currentIndex}
+            src={images[currentIndex]}
+            alt="Project screenshot"
+            className="w-full h-full object-contain bg-black/50"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+          />
+        </AnimatePresence>
+        
+        {/* Navigation Buttons */}
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={prevImage}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 hover:bg-white/20 transition-colors"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={nextImage}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 hover:bg-white/20 transition-colors"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </>
+        )}
+        
+        {/* Dots Indicator */}
+        {images.length > 1 && (
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  index === currentIndex ? 'bg-white w-6' : 'bg-white/40'
+                }`}
+              />
+            ))}
+          </div>
+        )}
+        
+        {/* Close Button */}
+        <button 
+          onClick={onClose}
+          className="absolute top-4 right-4 w-10 h-10 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 hover:bg-white/20 transition-colors"
+        >
+          <X size={20} />
+        </button>
+      </motion.div>
+
+      {/* Lanyard Modal */}
+      <AnimatePresence>
+        {showLanyard && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
+            onClick={() => setShowLanyard(false)}
+          >
+            <div className="relative w-full h-full" onClick={(e) => e.stopPropagation()}>
+              <button
+                onClick={() => setShowLanyard(false)}
+                className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 hover:bg-white/20 transition-colors"
+              >
+                <X size={20} />
+              </button>
+              <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+};
+
 const ScreenWrapper = ({ children, className = '' }: { children: React.ReactNode, className?: string }) => (
   <motion.div
     variants={staggerContainer}
@@ -158,15 +316,23 @@ const ScreenWrapper = ({ children, className = '' }: { children: React.ReactNode
 
 const HomeScreen = ({ onNavigate, onOpenPhoto }: { onNavigate: (tab: TabId) => void, onOpenPhoto: () => void }) => {
   const currentTime = useTime();
+  const [showLanyard, setShowLanyard] = useState(false);
 
   return (
     <ScreenWrapper>
       {/* Header Bento */}
       <motion.div variants={fadeUpVariant} className="glass-card rounded-[2rem] p-6 relative overflow-hidden">
         {/* Avatar Button Overlapping Top Right */}
+        <button
+            onClick={() => setShowLanyard(true)}
+            className="absolute right-6 mt-6  top-1/2 -translate-y-1/2 w-8 h-8 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 hover:bg-white/20 transition-colors z-20"
+            title="View Lanyard"
+          >
+            <ArrowUpRight size={14} />
+          </button>
         <button 
           onClick={onOpenPhoto}
-          className="absolute top-6 right-6 w-16 h-16 rounded-full border-2 border-[#0A0A0A] shadow-xl overflow-hidden mt-7 group z-10 ring-2 ring-white/10 transition-transform hover:scale-105"
+          className="absolute top-6 right-6 w-12 h-12 rounded-full border-2 border-[#0A0A0A] shadow-xl overflow-hidden mt-9 group z-10 ring-2 ring-white/10 transition-transform hover:scale-105"
         >
           <img src={PORTFOLIO_DATA.photo} alt="Profile" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
           <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
@@ -186,7 +352,30 @@ const HomeScreen = ({ onNavigate, onOpenPhoto }: { onNavigate: (tab: TabId) => v
             {PORTFOLIO_DATA.name}
           </h1>
           <p className="text-sm font-medium text-neutral-400 mb-6">
-            {PORTFOLIO_DATA.role} <br/> {PORTFOLIO_DATA.status}
+            <ShinyText
+              text={PORTFOLIO_DATA.role}
+              speed={3}
+              delay={0}
+              color="#9ca3af"
+              shineColor="#ffffff"
+              spread={120}
+              direction="left"
+              yoyo={false}
+              pauseOnHover={false}
+              disabled={false}
+            /> <br/> 
+            <ShinyText
+              text={PORTFOLIO_DATA.status}
+              speed={3}
+              delay={1}
+              color="#9ca3af"
+              shineColor="#ffffff"
+              spread={120}
+              direction="left"
+              yoyo={false}
+              pauseOnHover={false}
+              disabled={false}
+            />
           </p>
           <p className="text-sm text-neutral-500 leading-relaxed max-w-[90%]">
             {PORTFOLIO_DATA.bio}
@@ -206,14 +395,14 @@ const HomeScreen = ({ onNavigate, onOpenPhoto }: { onNavigate: (tab: TabId) => v
         </div>
         
         <div className="grid grid-rows-2 gap-4">
-          <a href="#" className="glass-card rounded-[2rem] p-5 flex items-center justify-between group hover:bg-white/[0.02] transition-colors">
+          <a href="https://www.linkedin.com/in/joshuafronda" target="_blank" rel="noopener noreferrer" className="glass-card rounded-[2rem] p-5 flex items-center justify-between group hover:bg-white/[0.02] transition-colors">
             <div className="flex items-center gap-3">
               <Linkedin size={18} className="text-neutral-400 group-hover:text-white transition-colors" />
               <span className="text-sm font-medium text-neutral-300 group-hover:text-white transition-colors">LinkedIn</span>
             </div>
             <ArrowUpRight size={16} className="text-neutral-600 group-hover:text-white transition-colors" />
           </a>
-          <a href="#" className="glass-card rounded-[2rem] p-5 flex items-center justify-between group hover:bg-white/[0.02] transition-colors">
+          <a href="https://github.com/joshuafronda" target="_blank" rel="noopener noreferrer" className="glass-card rounded-[2rem] p-5 flex items-center justify-between group hover:bg-white/[0.02] transition-colors">
             <div className="flex items-center gap-3">
               <Github size={18} className="text-neutral-400 group-hover:text-white transition-colors" />
               <span className="text-sm font-medium text-neutral-300 group-hover:text-white transition-colors">GitHub</span>
@@ -223,15 +412,25 @@ const HomeScreen = ({ onNavigate, onOpenPhoto }: { onNavigate: (tab: TabId) => v
         </div>
       </motion.div>
 
-      {/* Terminal Bento */}
-      <motion.div variants={fadeUpVariant} className="glass-card rounded-[2rem] p-6">
-        <div className="flex items-center justify-between mb-4">
-          <p className="micro-label">System Output</p>
+      {/* Terminal Bento with Technical Arsenal */}
+      <motion.div variants={fadeUpVariant} className="">
+        <div className="flex items-center justify-between mb-5">
+          <p className="micro-label">Technical Arsenal</p>
           <Terminal size={14} className="text-neutral-500" />
         </div>
-        <div className="font-mono text-[10px] text-neutral-600 break-all leading-relaxed h-16 overflow-hidden relative">
-          {PORTFOLIO_DATA.binaryText}
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
+        <div className="h-5 relative overflow-hidden">
+          <LogoLoop
+            logos={SKILL_LOGOS}
+            speed={80}
+            direction="left"
+            logoHeight={10}
+            gap={25}
+            hoverSpeed={0}
+            scaleOnHover
+            fadeOut
+            fadeOutColor="#0A0A0A"
+            ariaLabel="Technical skills and technologies"
+          />
         </div>
       </motion.div>
 
@@ -245,7 +444,9 @@ const HomeScreen = ({ onNavigate, onOpenPhoto }: { onNavigate: (tab: TabId) => v
           <ArrowUpRight size={18} />
         </button>
         <a 
-          href="#"
+          href="https://drive.google.com/file/d/1M6jPpTxGgahrJnvaR7lFRyS4xmmP18Lt/view?usp=drive_link"
+          target="_blank"
+          rel="noopener noreferrer"
           className="glass-card rounded-[2rem] p-5 flex items-center justify-between group hover:bg-white/[0.02] transition-colors"
         >
           <span className="text-sm font-medium text-neutral-300">Resume</span>
@@ -257,6 +458,8 @@ const HomeScreen = ({ onNavigate, onOpenPhoto }: { onNavigate: (tab: TabId) => v
 };
 
 const ProjectsScreen = () => {
+  const [carouselProject, setCarouselProject] = useState<{ images: any[] } | null>(null);
+
   return (
     <ScreenWrapper>
       <motion.div variants={fadeUpVariant} className="px-2 mb-4">
@@ -270,14 +473,14 @@ const ProjectsScreen = () => {
             key={project.id}
             variants={fadeUpVariant}
             className="glass-card rounded-[2rem] p-0 group cursor-pointer hover:border-white/20 transition-all relative overflow-hidden min-h-[320px] flex flex-col justify-end"
+            onClick={() => window.open(project.link, '_blank', 'noopener,noreferrer')}
           >
             {/* Fading Background Image */}
             <div className="absolute inset-0 w-full h-full z-0">
               <img 
-                src={project.image} 
+                src={project.images[0]} 
                 alt={project.title} 
                 className="w-full h-full object-cover opacity-30 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 ease-out"
-                referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent" />
             </div>
@@ -287,8 +490,20 @@ const ProjectsScreen = () => {
               <div className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center">
                 <span className="font-mono text-xs text-neutral-300">0{idx + 1}</span>
               </div>
-              <div className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:bg-white transition-colors">
-                <ArrowUpRight size={20} className="text-white group-hover:text-black transition-colors" />
+              <div className="flex gap-2">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCarouselProject(project);
+                  }}
+                  className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors"
+                  title="View Screenshots"
+                >
+                  <Camera size={16} className="text-white" />
+                </button>
+                <div className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:bg-white transition-colors">
+                  <ArrowUpRight size={20} className="text-white group-hover:text-black transition-colors" />
+                </div>
               </div>
             </div>
             
@@ -303,6 +518,17 @@ const ProjectsScreen = () => {
           </motion.div>
         ))}
       </div>
+
+      {/* Carousel Modal */}
+      <AnimatePresence>
+        {carouselProject && (
+          <ProjectCarousel 
+            images={carouselProject.images} 
+            isOpen={true} 
+            onClose={() => setCarouselProject(null)} 
+          />
+        )}
+      </AnimatePresence>
     </ScreenWrapper>
   );
 };
@@ -332,17 +558,6 @@ const ProfileScreen = () => {
                 ))}
               </ul>
             </div>
-          ))}
-        </div>
-      </motion.div>
-
-      <motion.div variants={fadeUpVariant} className="glass-card rounded-[2rem] p-6">
-        <p className="micro-label mb-6">Technical Arsenal</p>
-        <div className="flex flex-wrap gap-2">
-          {PORTFOLIO_DATA.skills.map((skill, idx) => (
-            <span key={idx} className="px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-medium text-neutral-300">
-              {skill}
-            </span>
           ))}
         </div>
       </motion.div>
