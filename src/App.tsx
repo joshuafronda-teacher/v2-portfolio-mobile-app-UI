@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import profileImage from './img/v1.jpg';
 import Careconnect from './img/CareConnect.png';
-import Easytizen from './img/Easytizen.png';
+import Easytizen from './img/EASYtizen.png';
 import MuniManage from './img/MuniManage.png';
 import SentinelFlow from './img/SentinelFlow.png';
 import ShinyText from './ShinyText';
