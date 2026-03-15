@@ -9,18 +9,24 @@ import Careconnect from './img/CareConnect.png';
 import Easytizen from './img/EASYtizen.png';
 import MuniManage from './img/MuniManage.png';
 import SentinelFlow from './img/SentinelFlow.png';
+import RewardImg from './img/reward.jpeg';
+import ShotImg from './img/shot.jpeg';
+import Speaker1Img from './img/Speaker1.jpeg';
+import Speaker2Img from './img/Speaker2.jpeg';
+import Speaker3Img from './img/Speaker3.jpeg';
 import ShinyText from './ShinyText';
 import LogoLoop from '../components/LogoLoop';
 import Lanyard from './Lanyard';
+import WebPortfolioView from './WebPortfolioView';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  Home, 
-  Briefcase, 
-  User, 
-  Award, 
-  ArrowUpRight, 
-  Github, 
-  Linkedin, 
+import {
+  Home,
+  Briefcase,
+  User,
+  Award,
+  ArrowUpRight,
+  Github,
+  Linkedin,
   Terminal,
   FileText,
   ExternalLink,
@@ -29,7 +35,11 @@ import {
   Camera,
   X,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Monitor,
+  Trophy,
+  Medal,
+  Mic
 } from 'lucide-react';
 
 // --- Skills Data for LogoLoop ---
@@ -102,9 +112,9 @@ const PORTFOLIO_DATA = {
     }
   ],
   experience: [
-    { 
-      role: 'Freelance Developer', 
-      company: 'Self-Employed', 
+    {
+      role: 'Freelance Developer',
+      company: 'Self-Employed',
       year: '2025 - PRESENT',
       details: [
         'Developing custom web and mobile applications for clients',
@@ -113,9 +123,9 @@ const PORTFOLIO_DATA = {
         'Working with modern technologies and best practices'
       ]
     },
-    { 
-      role: 'IT/CS Instructor', 
-      company: 'Batangas State University TNEU - Alangilan Campus', 
+    {
+      role: 'IT/CS Instructor',
+      company: 'Batangas State University TNEU - Alangilan Campus',
       year: 'PRESENT',
       details: [
         'Teaching Advanced Computer Programming & Networking courses',
@@ -124,9 +134,9 @@ const PORTFOLIO_DATA = {
         "Pursuing Master's in Information Technology (Graduate School 2025)"
       ]
     },
-    { 
-      role: 'Full Stack Developer Intern', 
-      company: 'Batangas State University TNEU - Main Campus', 
+    {
+      role: 'Full Stack Developer Intern',
+      company: 'Batangas State University TNEU - Main Campus',
       year: 'FEB — APR 2025',
       details: [
         'Developed web and mobile applications & maintained backend services',
@@ -137,8 +147,8 @@ const PORTFOLIO_DATA = {
     },
   ],
   skills: [
-    'HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Tailwind CSS', 
-    'Flutter', 'Vite', 'Python', 'Django', 'PHP', 'WordPress', 
+    'HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Tailwind CSS',
+    'Flutter', 'Vite', 'Python', 'Django', 'PHP', 'WordPress',
     'Nginx', 'MySQL', 'PostgreSQL', 'MongoDB', 'Git', 'Ubuntu', 'Firebase'
   ],
   certifications: [
@@ -151,7 +161,22 @@ const PORTFOLIO_DATA = {
     { title: 'AWS Academy Cloud Architecting', issuer: 'Amazon Web Services (AWS)', date: 'May 2025' },
     { title: 'AWS Academy Cloud Foundations', issuer: 'Amazon Web Services (AWS)', date: 'Apr 2025' },
     { title: 'Tech Nexus 2024: Empowering Campus Innovators', issuer: 'DEVCON Philippines', date: 'Dec 2024' },
-  ]
+  ],
+  competition: {
+    title: '10th Huawei ICT Competition 2025–2026',
+    track: 'Innovation Track · Philippines',
+    prize: '2nd Place',
+    team: 'NEXT CS',
+    description: 'Out of 2,900 students across the Philippines, NEXT CS proved its strength by winning Second Prize in the 10th Huawei ICT Competition 2025–2026 – Philippines, Innovation Track, proudly representing the CICS Department and our universities.',
+    images: [RewardImg, ShotImg],
+  },
+  trickOrTech: {
+    title: 'TRICK OR TECH: The AI Dilemma',
+    role: 'Resource Speaker',
+    host: 'CICS Mabini – Batangas State University TNEU',
+    description: 'Invited as a Resource Speaker for the tech talk “TRICK OR TECH: The AI Dilemma” hosted by the CICS Department of Batangas State University – The National Engineering University, Mabini Campus.',
+    images: [Speaker1Img, Speaker2Img, Speaker3Img],
+  }
 };
 
 // --- Custom Hooks ---
@@ -182,10 +207,10 @@ const staggerContainer = {
 
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 15 },
-  show: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { type: 'spring', stiffness: 120, damping: 20 } 
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', stiffness: 120, damping: 20 }
   }
 };
 
@@ -231,7 +256,7 @@ const ProjectCarousel = ({ images, isOpen, onClose }: { images: any[], isOpen: b
             transition={{ duration: 0.3 }}
           />
         </AnimatePresence>
-        
+
         {/* Navigation Buttons */}
         {images.length > 1 && (
           <>
@@ -249,7 +274,7 @@ const ProjectCarousel = ({ images, isOpen, onClose }: { images: any[], isOpen: b
             </button>
           </>
         )}
-        
+
         {/* Dots Indicator */}
         {images.length > 1 && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
@@ -257,16 +282,15 @@ const ProjectCarousel = ({ images, isOpen, onClose }: { images: any[], isOpen: b
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  index === currentIndex ? 'bg-white w-6' : 'bg-white/40'
-                }`}
+                className={`w-2 h-2 rounded-full transition-all ${index === currentIndex ? 'bg-white w-6' : 'bg-white/40'
+                  }`}
               />
             ))}
           </div>
         )}
-        
+
         {/* Close Button */}
-        <button 
+        <button
           onClick={onClose}
           className="absolute top-4 right-4 w-10 h-10 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 hover:bg-white/20 transition-colors"
         >
@@ -324,13 +348,13 @@ const HomeScreen = ({ onNavigate, onOpenPhoto }: { onNavigate: (tab: TabId) => v
       <motion.div variants={fadeUpVariant} className="glass-card rounded-[2rem] p-6 relative overflow-hidden">
         {/* Avatar Button Overlapping Top Right */}
         <button
-            onClick={() => setShowLanyard(true)}
-            className="absolute right-6 mt-6  top-1/2 -translate-y-1/2 w-8 h-8 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 hover:bg-white/20 transition-colors z-20"
-            title="View Lanyard"
-          >
-            <ArrowUpRight size={14} />
-          </button>
-        <button 
+          onClick={() => setShowLanyard(true)}
+          className="absolute right-6 mt-6  top-1/2 -translate-y-1/2 w-8 h-8 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 hover:bg-white/20 transition-colors z-20"
+          title="View Lanyard"
+        >
+          <ArrowUpRight size={14} />
+        </button>
+        <button
           onClick={onOpenPhoto}
           className="absolute top-6 right-6 w-12 h-12 rounded-full border-2 border-[#0A0A0A] shadow-xl overflow-hidden mt-9 group z-10 ring-2 ring-white/10 transition-transform hover:scale-105"
         >
@@ -363,7 +387,7 @@ const HomeScreen = ({ onNavigate, onOpenPhoto }: { onNavigate: (tab: TabId) => v
               yoyo={false}
               pauseOnHover={false}
               disabled={false}
-            /> <br/> 
+            /> <br />
             <ShinyText
               text={PORTFOLIO_DATA.status}
               speed={3}
@@ -393,7 +417,7 @@ const HomeScreen = ({ onNavigate, onOpenPhoto }: { onNavigate: (tab: TabId) => v
             <p className="text-xs text-neutral-500 mt-1">{currentTime} Local</p>
           </div>
         </div>
-        
+
         <div className="grid grid-rows-2 gap-4">
           <a href="https://www.linkedin.com/in/joshuafronda" target="_blank" rel="noopener noreferrer" className="glass-card rounded-[2rem] p-5 flex items-center justify-between group hover:bg-white/[0.02] transition-colors">
             <div className="flex items-center gap-3">
@@ -436,14 +460,14 @@ const HomeScreen = ({ onNavigate, onOpenPhoto }: { onNavigate: (tab: TabId) => v
 
       {/* Action Bento */}
       <motion.div variants={fadeUpVariant} className="grid grid-cols-2 gap-4">
-        <button 
+        <button
           onClick={() => onNavigate('projects')}
           className="glass-card rounded-[2rem] p-5 flex items-center justify-between group hover:bg-white text-white hover:text-black transition-all"
         >
           <span className="text-sm font-semibold">View Work</span>
           <ArrowUpRight size={18} />
         </button>
-        <a 
+        <a
           href="https://drive.google.com/file/d/1M6jPpTxGgahrJnvaR7lFRyS4xmmP18Lt/view?usp=drive_link"
           target="_blank"
           rel="noopener noreferrer"
@@ -453,9 +477,143 @@ const HomeScreen = ({ onNavigate, onOpenPhoto }: { onNavigate: (tab: TabId) => v
           <FileText size={18} className="text-neutral-500" />
         </a>
       </motion.div>
+
+      {/* Achievement Bento — Huawei ICT Competition */}
+      <AchievementBento />
+
+      {/* Speaker Bento — TRICK OR TECH */}
+      <SpeakerBento />
     </ScreenWrapper>
   );
 };
+
+// --- Achievement Bento Card Component ---
+const AchievementBento = () => {
+  const [imgIdx, setImgIdx] = useState(0);
+  const images = PORTFOLIO_DATA.competition.images;
+
+  return (
+    <motion.div variants={fadeUpVariant} className="glass-card rounded-[2rem] overflow-hidden relative">
+      {/* Photo strip with tap-to-cycle */}
+      <div
+        className="relative w-full h-44 cursor-pointer overflow-hidden"
+        onClick={() => setImgIdx((i) => (i + 1) % images.length)}
+      >
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={imgIdx}
+            src={images[imgIdx]}
+            alt="Competition achievement"
+            className="absolute inset-0 w-full h-full object-cover"
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.97 }}
+            transition={{ duration: 0.35 }}
+          />
+        </AnimatePresence>
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent" />
+        {/* Image dots */}
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+          {images.map((_, i) => (
+            <span
+              key={i}
+              className={`block h-1.5 rounded-full transition-all duration-300 ${i === imgIdx ? 'w-5 bg-amber-400' : 'w-1.5 bg-white/30'}`}
+            />
+          ))}
+        </div>
+        {/* Prize badge */}
+        <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-amber-500/90 backdrop-blur-md text-black rounded-full px-3 py-1 shadow-lg">
+          <Trophy size={12} />
+          <span className="text-[11px] font-bold tracking-wide">{PORTFOLIO_DATA.competition.prize}</span>
+        </div>
+      </div>
+
+      {/* Text Content */}
+      <div className="p-5">
+        <div className="flex items-start justify-between gap-3 mb-2">
+          <div>
+            <p className="micro-label mb-1 text-amber-500/70">{PORTFOLIO_DATA.competition.track}</p>
+            <h3 className="text-sm font-semibold text-white leading-snug">{PORTFOLIO_DATA.competition.title}</h3>
+          </div>
+          <div className="flex-shrink-0 w-9 h-9 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+            <Medal size={16} className="text-amber-400" />
+          </div>
+        </div>
+        <p className="text-xs text-neutral-500 leading-relaxed mt-2">{PORTFOLIO_DATA.competition.description}</p>
+        <div className="mt-3 pt-3 border-t border-white/[0.06] flex items-center gap-2">
+          <span className="font-mono text-[10px] text-neutral-600 uppercase tracking-widest">Team</span>
+          <span className="text-xs font-semibold text-white">{PORTFOLIO_DATA.competition.team}</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+// --- Speaker Bento Card Component ---
+const SpeakerBento = () => {
+  const [imgIdx, setImgIdx] = useState(0);
+  const speak = PORTFOLIO_DATA.trickOrTech;
+  const images = speak.images;
+
+  return (
+    <motion.div variants={fadeUpVariant} className="glass-card rounded-[2rem] overflow-hidden relative border border-violet-500/20">
+      {/* Photo strip — tap to cycle */}
+      <div
+        className="relative w-full h-44 cursor-pointer overflow-hidden"
+        onClick={() => setImgIdx((i) => (i + 1) % images.length)}
+      >
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={imgIdx}
+            src={images[imgIdx]}
+            alt="Speaker event"
+            className="absolute inset-0 w-full h-full object-cover"
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.97 }}
+            transition={{ duration: 0.35 }}
+          />
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent" />
+        {/* Image dots */}
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+          {images.map((_, i) => (
+            <span
+              key={i}
+              className={`block h-1.5 rounded-full transition-all duration-300 ${i === imgIdx ? 'w-5 bg-violet-400' : 'w-1.5 bg-white/30'
+                }`}
+            />
+          ))}
+        </div>
+        {/* Role badge */}
+        <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-violet-600/90 backdrop-blur-md text-white rounded-full px-3 py-1 shadow-lg">
+          <Mic size={11} />
+          <span className="text-[11px] font-bold tracking-wide">{speak.role}</span>
+        </div>
+      </div>
+
+      {/* Text Content */}
+      <div className="p-5">
+        <div className="flex items-start justify-between gap-3 mb-2">
+          <div>
+            <p className="micro-label mb-1 text-violet-400/70">Tech Talk</p>
+            <h3 className="text-sm font-semibold text-white leading-snug">{speak.title}</h3>
+          </div>
+          <div className="flex-shrink-0 w-9 h-9 rounded-full bg-violet-500/10 border border-violet-500/20 flex items-center justify-center">
+            <Mic size={16} className="text-violet-400" />
+          </div>
+        </div>
+        <p className="text-xs text-neutral-500 leading-relaxed mt-2">{speak.description}</p>
+        <div className="mt-3 pt-3 border-t border-white/[0.06] flex items-center gap-2">
+          <span className="font-mono text-[10px] text-neutral-600 uppercase tracking-widest">Host</span>
+          <span className="text-xs font-medium text-white leading-snug">{speak.host}</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 
 const ProjectsScreen = () => {
   const [carouselProject, setCarouselProject] = useState<{ images: any[] } | null>(null);
@@ -469,7 +627,7 @@ const ProjectsScreen = () => {
 
       <div className="flex flex-col gap-4">
         {PORTFOLIO_DATA.projects.map((project, idx) => (
-          <motion.div 
+          <motion.div
             key={project.id}
             variants={fadeUpVariant}
             className="glass-card rounded-[2rem] p-0 group cursor-pointer hover:border-white/20 transition-all relative overflow-hidden min-h-[320px] flex flex-col justify-end"
@@ -477,9 +635,9 @@ const ProjectsScreen = () => {
           >
             {/* Fading Background Image */}
             <div className="absolute inset-0 w-full h-full z-0">
-              <img 
-                src={project.images[0]} 
-                alt={project.title} 
+              <img
+                src={project.images[0]}
+                alt={project.title}
                 className="w-full h-full object-cover opacity-30 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 ease-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent" />
@@ -496,7 +654,7 @@ const ProjectsScreen = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Content */}
             <div className="relative z-10 p-6 pt-12">
               <p className="micro-label mb-2 text-white/70">{project.category}</p>
@@ -512,10 +670,10 @@ const ProjectsScreen = () => {
       {/* Carousel Modal */}
       <AnimatePresence>
         {carouselProject && (
-          <ProjectCarousel 
-            images={carouselProject.images} 
-            isOpen={true} 
-            onClose={() => setCarouselProject(null)} 
+          <ProjectCarousel
+            images={carouselProject.images}
+            isOpen={true}
+            onClose={() => setCarouselProject(null)}
           />
         )}
       </AnimatePresence>
@@ -565,7 +723,7 @@ const CertificationsScreen = () => {
 
       <div className="flex flex-col gap-3">
         {PORTFOLIO_DATA.certifications.map((cert, idx) => (
-          <motion.div 
+          <motion.div
             key={idx}
             variants={fadeUpVariant}
             className="glass-card rounded-[1.5rem] p-5 flex flex-col gap-2 group hover:bg-white/[0.02] transition-colors"
@@ -577,7 +735,7 @@ const CertificationsScreen = () => {
               </div>
               <ExternalLink size={16} className="text-neutral-600 group-hover:text-white transition-colors flex-shrink-0" />
             </div>
-            
+
             <div className="flex items-center justify-between mt-2 pt-3 border-t border-white/5">
               <p className="micro-label">{cert.date}</p>
               {cert.id && <p className="font-mono text-[10px] text-neutral-600">ID: {cert.id}</p>}
@@ -594,6 +752,7 @@ const CertificationsScreen = () => {
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabId>('home');
   const [isPhotoOpen, setIsPhotoOpen] = useState(false);
+  const [showWebView, setShowWebView] = useState(false);
 
   const tabs: { id: TabId; icon: React.ElementType; label: string }[] = [
     { id: 'home', icon: Home, label: 'Home' },
@@ -606,7 +765,7 @@ export default function App() {
     <div className="flex justify-center items-center min-h-screen bg-[#000000] font-sans selection:bg-white/30">
       {/* Mobile Device Mockup Container */}
       <div className="w-full max-w-[400px] h-[100dvh] bg-[#000000] bg-noise text-white relative overflow-hidden flex flex-col sm:h-[850px] sm:rounded-[3rem] sm:border-[8px] sm:border-neutral-900 sm:shadow-2xl sm:shadow-white/5">
-        
+
         {/* Status Bar Mockup */}
         <div className="hidden sm:flex justify-between items-center px-8 pt-5 pb-2 text-xs font-semibold text-white/90 z-30 relative">
           <span>9:41</span>
@@ -632,6 +791,19 @@ export default function App() {
 
         {/* Floating Bottom Navigation + Profile Preview */}
         <div className="absolute bottom-0 w-full pb-safe pt-8 px-6 z-25 sm:pb-8 pointer-events-none bg-gradient-to-t from-black via-black/80 to-transparent">
+
+          {/* Web View pill — centered above the nav bar */}
+          <div className="flex justify-center mb-2 pointer-events-auto">
+            <button
+              onClick={() => setShowWebView(true)}
+              title="Preview Web Version"
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#0A0A0A] border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all shadow-lg"
+            >
+              <Monitor size={12} className="text-neutral-500" />
+              <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">Web View</span>
+            </button>
+          </div>
+
           <nav className="bg-[#0A0A0A] border border-white/10 rounded-full p-1.5 mb-2 flex justify-between items-center relative pointer-events-auto shadow-2xl backdrop-blur-xl">
             {tabs.map((tab) => {
               const Icon = tab.icon;
@@ -653,7 +825,7 @@ export default function App() {
                     animate={{ color: isActive ? '#FFF' : '#525252' }}
                     className="relative z-10"
                   >
-                        <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
+                    <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
                   </motion.div>
                 </button>
               );
@@ -680,7 +852,7 @@ export default function App() {
                 onClick={(e) => e.stopPropagation()}
               >
                 <img src={PORTFOLIO_DATA.photo} alt={PORTFOLIO_DATA.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                <button 
+                <button
                   onClick={() => setIsPhotoOpen(false)}
                   className="absolute top-4 right-4 w-10 h-10 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 hover:bg-white/20 transition-colors"
                 >
@@ -691,6 +863,13 @@ export default function App() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Web Portfolio View Overlay */}
+      <AnimatePresence>
+        {showWebView && (
+          <WebPortfolioView onClose={() => setShowWebView(false)} />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
