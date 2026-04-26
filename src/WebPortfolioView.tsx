@@ -12,6 +12,9 @@ import Careconnect from './img/CareConnect.png';
 import Easytizen from './img/EASYtizen.png';
 import MuniManage from './img/MuniManage.png';
 import SentinelFlow from './img/SentinelFlow.png';
+import ProjectGo1 from './img/projectgo1.png';
+import ProjectGo2 from './img/projectgo2.png';
+import CloudSync from './img/cloudsync.png';
 import RewardImg from './img/reward.jpeg';
 import ShotImg from './img/shot.jpeg';
 import Speaker1Img from './img/Speaker1.jpeg';
@@ -49,10 +52,18 @@ const PORTFOLIO_DATA = {
   photo: profileImage,
   role: 'Developer',
   location: 'Batangas, PH',
-  status: 'IT/CS Instructor',
-  bio: 'A dedicated and results-driven professional with experience in web and mobile development.',
+  status: 'IT Instructor',
+  bio: 'A dedicated and results-driven professional with experience in web and mobile development. AI Prompt Engineer — leveraging tools like Claude, Gemini, GLM, SWE, ChatGPT, Kimi, and Cursor to accelerate development workflows and deliver quality solutions.',
   email: 'joshuafronda@email.com',
   projects: [
+    {
+      id: 'p5',
+      title: 'Project Go',
+      category: 'Project Management',
+      desc: 'Role-Based Workflows — Rigid permissions mapped to Owners, Managers, Finance, and Engineers. View only what matters to you. Real-time Messaging — Built-in direct messages and channels. Keep conversations attached to the project context. Budget Tracking — Live financial dashboards. Monitor allocation vs. expenditure securely without third-party tools. Smart Contracts — Generate professional Project Charters dynamically from your form inputs. Signed, sealed, delivered. Milestone Tracking — Break projects down to deliverables. Require strict sign-offs to pass progression gates.',
+      images: [ProjectGo1, ProjectGo2],
+      link: '',
+    },
     {
       id: 'p1',
       title: 'EASYtizen',
@@ -85,6 +96,14 @@ const PORTFOLIO_DATA = {
       images: [SentinelFlow],
       link: 'https://sentinel-flow.vercel.app/',
     },
+    {
+      id: 'p6',
+      title: 'CloudSync',
+      category: 'Collaboration',
+      desc: 'Streamline your workflow, collaborate seamlessly, and deliver projects on time. CloudSync is the all-in-one platform for modern teams.',
+      images: [CloudSync],
+      link: '',
+    },
   ],
   experience: [
     {
@@ -101,7 +120,7 @@ const PORTFOLIO_DATA = {
     {
       role: 'IT/CS Instructor',
       company: 'Batangas State University TNEU – Alangilan Campus',
-      year: 'PRESENT',
+      year: '2025 – PRESENT',
       details: [
         'Teaching Advanced Computer Programming & Networking courses',
         'Teaching Mobile Computing and Mobile Development',
@@ -122,11 +141,13 @@ const PORTFOLIO_DATA = {
     },
   ],
   skills: [
-    'HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Tailwind CSS',
-    'Flutter', 'Vite', 'Python', 'Django', 'PHP', 'WordPress',
+    'HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'React Native', 'Tailwind CSS',
+    'Flutter', 'Kotlin', 'Java', 'Vite', 'Python', 'Django', 'PHP', 'WordPress',
     'Nginx', 'MySQL', 'PostgreSQL', 'MongoDB', 'Git', 'Ubuntu', 'Firebase',
+    'Windsurf', 'Antigravity', 'Cursor', 'Visual Studio',
   ],
   certifications: [
+    { title: 'Certificate of Achievement – Second Prize Innovation Track', issuer: 'Huawei ICT Competition', date: 'Dec 2025' },
     { title: 'Cybersecurity', issuer: 'Asian Development Bank (ADB)', date: 'Dec 2025', id: '145749-176-472-9154' },
     { title: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate', issuer: 'Oracle', date: 'Dec 2025' },
     { title: 'Introduction to Data Science', issuer: 'Cisco', date: 'Nov 2025' },
@@ -257,26 +278,26 @@ const HomeSection = ({ onNavigate }: { onNavigate: (s: WebSection) => void }) =>
   const time = useTime();
 
   return (
-    <motion.section variants={stagger} initial="hidden" animate="show" className="min-h-screen flex flex-col justify-center max-w-6xl mx-auto px-8 py-24 gap-16">
+    <motion.section variants={stagger} initial="hidden" animate="show" className="min-h-screen flex flex-col justify-center max-w-6xl mx-auto px-8 py-16 gap-10">
       {/* Hero */}
-      <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-12 items-center">
+      <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-8 items-center">
         <div>
-          <div className="flex items-center gap-2 mb-6">
+          <div className="flex items-center gap-2 mb-4">
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
             </span>
             <span className="font-mono text-[11px] uppercase tracking-widest text-emerald-500/80">Open to Opportunities</span>
           </div>
-          <h1 className="text-6xl lg:text-7xl font-semibold tracking-tight text-white leading-[1.05] mb-4">
+          <h1 className="text-6xl lg:text-7xl font-semibold tracking-tight text-white leading-[1.05] mb-3">
             {PORTFOLIO_DATA.name}
           </h1>
           <p className="text-xl text-neutral-400 font-medium mb-2">{PORTFOLIO_DATA.role} · {PORTFOLIO_DATA.status}</p>
-          <div className="flex items-center gap-2 text-neutral-500 mb-8">
+          <div className="flex items-center gap-2 text-neutral-500 mb-5">
             <MapPin size={14} />
             <span className="text-sm">{PORTFOLIO_DATA.location} · {time} Local</span>
           </div>
-          <p className="text-neutral-400 text-base leading-relaxed max-w-md mb-10">
+          <p className="text-neutral-400 text-base leading-relaxed max-w-md mb-6">
             {PORTFOLIO_DATA.bio}
           </p>
           <div className="flex flex-wrap gap-3">
@@ -333,7 +354,7 @@ const HomeSection = ({ onNavigate }: { onNavigate: (s: WebSection) => void }) =>
 
       {/* Skills strip */}
       <motion.div variants={fadeUp}>
-        <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-4">Technical Arsenal</p>
+        <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-3">Technical Arsenal</p>
         <div className="flex flex-wrap gap-2">
           {PORTFOLIO_DATA.skills.map((skill) => (
             <span
@@ -355,22 +376,23 @@ const ProjectsSection = () => {
   const [modal, setModal] = useState<{ images: string[]; title: string } | null>(null);
 
   return (
-    <motion.section variants={stagger} initial="hidden" animate="show" className="max-w-6xl mx-auto px-8 py-24">
-      <motion.div variants={fadeUp} className="mb-14">
-        <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-3">Selected Works</p>
+    <motion.section variants={stagger} initial="hidden" animate="show" className="max-w-6xl mx-auto px-8 py-16">
+      <motion.div variants={fadeUp} className="mb-8">
+        <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-2">Selected Works</p>
         <h2 className="text-4xl font-semibold tracking-tight text-white">Featured Projects</h2>
         <p className="text-neutral-500 mt-2 text-sm">Case studies & live deployments.</p>
       </motion.div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-4">
         {PORTFOLIO_DATA.projects.map((project, idx) => (
           <motion.div
             key={project.id}
             variants={fadeUp}
-            className="group relative rounded-3xl overflow-hidden border border-white/[0.08] bg-[#0A0A0A] cursor-pointer hover:border-white/20 transition-all duration-500 min-h-[340px] flex flex-col justify-end"
-            onClick={() => window.open(project.link, '_blank', 'noopener,noreferrer')}
+            className="group relative rounded-3xl overflow-hidden border border-white/[0.08] bg-[#0A0A0A] cursor-pointer hover:border-white/20 transition-all duration-500 min-h-[280px] flex flex-col justify-end"
+            onClick={() => project.link && window.open(project.link, '_blank', 'noopener,noreferrer')}
           >
             {/* BG Image */}
+            {project.images[0] ? (
             <div className="absolute inset-0">
               <img
                 src={project.images[0]}
@@ -379,6 +401,9 @@ const ProjectsSection = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/70 to-transparent" />
             </div>
+            ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent" />
+            )}
 
             {/* Top bar */}
             <div className="absolute top-6 left-6 right-6 flex justify-between items-start z-10">
@@ -395,12 +420,14 @@ const ProjectsSection = () => {
               <p className="font-mono text-[10px] uppercase tracking-widest text-white/50 mb-2">{project.category}</p>
               <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
               <p className="text-sm text-neutral-400 leading-relaxed line-clamp-2">{project.desc}</p>
+              {project.images.length > 0 && (
               <button
                 onClick={(e) => { e.stopPropagation(); setModal({ images: project.images, title: project.title }); }}
                 className="mt-4 text-xs font-mono text-neutral-500 hover:text-white transition-colors flex items-center gap-1"
               >
                 Preview screenshot →
               </button>
+              )}
             </div>
           </motion.div>
         ))}
@@ -416,19 +443,19 @@ const ProjectsSection = () => {
 // ─── Experience Section ────────────────────────────────────────────────────
 
 const ExperienceSection = () => (
-  <motion.section variants={stagger} initial="hidden" animate="show" className="max-w-6xl mx-auto px-8 py-24">
-    <motion.div variants={fadeUp} className="mb-14">
-      <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-3">Career</p>
+  <motion.section variants={stagger} initial="hidden" animate="show" className="max-w-6xl mx-auto px-8 py-16">
+    <motion.div variants={fadeUp} className="mb-8">
+      <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-2">Career</p>
       <h2 className="text-4xl font-semibold tracking-tight text-white">Experience</h2>
       <p className="text-neutral-500 mt-2 text-sm">Professional journey & skills.</p>
     </motion.div>
 
-    <div className="grid lg:grid-cols-3 gap-6">
+    <div className="grid lg:grid-cols-3 gap-4">
       {PORTFOLIO_DATA.experience.map((exp, idx) => (
         <motion.div
           key={idx}
           variants={fadeUp}
-          className="bg-[#0A0A0A] border border-white/[0.08] rounded-3xl p-6 flex flex-col gap-4 hover:border-white/20 transition-colors"
+          className="bg-[#0A0A0A] border border-white/[0.08] rounded-3xl p-5 flex flex-col gap-3 hover:border-white/20 transition-colors"
         >
           <div>
             <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-1">{exp.year}</p>
@@ -436,7 +463,7 @@ const ExperienceSection = () => (
             <p className="text-xs text-neutral-500 mt-1">{exp.company}</p>
           </div>
           <div className="w-full h-px bg-white/[0.06]" />
-          <ul className="flex flex-col gap-2.5">
+          <ul className="flex flex-col gap-1.5">
             {exp.details.map((d, di) => (
               <li key={di} className="flex items-start gap-2 text-xs text-neutral-500 leading-relaxed">
                 <CircleDot size={10} className="flex-shrink-0 mt-0.5 text-neutral-700" />
@@ -453,9 +480,9 @@ const ExperienceSection = () => (
 // ─── Certifications Section ────────────────────────────────────────────────
 
 const CertificationsSection = () => (
-  <motion.section variants={stagger} initial="hidden" animate="show" className="max-w-6xl mx-auto px-8 py-24">
-    <motion.div variants={fadeUp} className="mb-14">
-      <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-3">Credentials</p>
+  <motion.section variants={stagger} initial="hidden" animate="show" className="max-w-6xl mx-auto px-8 py-16">
+    <motion.div variants={fadeUp} className="mb-8">
+      <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-2">Credentials</p>
       <h2 className="text-4xl font-semibold tracking-tight text-white">Certifications</h2>
       <p className="text-neutral-500 mt-2 text-sm">Continuous learning & achievements.</p>
     </motion.div>
@@ -492,9 +519,9 @@ const AchievementSection = () => {
   const comp = PORTFOLIO_DATA.competition;
 
   return (
-    <motion.section variants={stagger} initial="hidden" animate="show" className="max-w-6xl mx-auto px-8 py-24">
-      <motion.div variants={fadeUp} className="mb-14">
-        <p className="font-mono text-[10px] uppercase tracking-widest text-amber-500/70 mb-3">Recognition</p>
+    <motion.section variants={stagger} initial="hidden" animate="show" className="max-w-6xl mx-auto px-8 py-16">
+      <motion.div variants={fadeUp} className="mb-8">
+        <p className="font-mono text-[10px] uppercase tracking-widest text-amber-500/70 mb-2">Recognition</p>
         <h2 className="text-4xl font-semibold tracking-tight text-white">Achievements</h2>
         <p className="text-neutral-500 mt-2 text-sm">Competitions & national recognition.</p>
       </motion.div>
@@ -538,7 +565,7 @@ const AchievementSection = () => {
           </div>
 
           {/* Right – details panel */}
-          <div className="p-8 lg:p-10 flex flex-col justify-center gap-6">
+          <div className="p-6 lg:p-8 flex flex-col justify-center gap-4">
             {/* Prize badge */}
             <div className="inline-flex items-center gap-2 bg-amber-500/15 border border-amber-500/30 text-amber-400 rounded-full px-4 py-2 w-fit">
               <Trophy size={16} />
@@ -553,18 +580,18 @@ const AchievementSection = () => {
             <p className="text-neutral-400 text-sm leading-relaxed">{comp.description}</p>
 
             {/* Stats row */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="bg-white/[0.04] border border-white/[0.07] rounded-2xl p-4 text-center">
+            <div className="grid grid-cols-3 gap-3">
+              <div className="bg-white/[0.04] border border-white/[0.07] rounded-2xl p-3 text-center">
                 <Medal size={18} className="text-amber-400 mx-auto mb-1.5" />
                 <p className="text-white font-bold text-lg">2nd</p>
                 <p className="text-neutral-600 text-[10px] font-mono uppercase tracking-widest mt-0.5">Place</p>
               </div>
-              <div className="bg-white/[0.04] border border-white/[0.07] rounded-2xl p-4 text-center">
+              <div className="bg-white/[0.04] border border-white/[0.07] rounded-2xl p-3 text-center">
                 <Star size={18} className="text-amber-400 mx-auto mb-1.5" />
                 <p className="text-white font-bold text-lg">2,900+</p>
                 <p className="text-neutral-600 text-[10px] font-mono uppercase tracking-widest mt-0.5">Students</p>
               </div>
-              <div className="bg-white/[0.04] border border-white/[0.07] rounded-2xl p-4 text-center">
+              <div className="bg-white/[0.04] border border-white/[0.07] rounded-2xl p-3 text-center">
                 <Trophy size={18} className="text-amber-400 mx-auto mb-1.5" />
                 <p className="text-white font-bold text-lg">PH</p>
                 <p className="text-neutral-600 text-[10px] font-mono uppercase tracking-widest mt-0.5">National</p>
@@ -572,7 +599,7 @@ const AchievementSection = () => {
             </div>
 
             {/* Team */}
-            <div className="flex items-center gap-3 pt-4 border-t border-white/[0.06]">
+            <div className="flex items-center gap-3 pt-3 border-t border-white/[0.06]">
               <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-600">Team</span>
               <span className="text-sm font-semibold text-white bg-white/5 border border-white/10 rounded-full px-3 py-1">{comp.team}</span>
               <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-600">{comp.org}</span>
@@ -596,14 +623,14 @@ const SpeakerCard = () => {
   return (
     <motion.div
       variants={fadeUp}
-      className="relative mt-6 rounded-3xl overflow-hidden border border-violet-500/20 bg-[#0A0A0A] shadow-2xl shadow-violet-500/5"
+      className="relative mt-4 rounded-3xl overflow-hidden border border-violet-500/20 bg-[#0A0A0A] shadow-2xl shadow-violet-500/5"
     >
       {/* Purple glow bg */}
       <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-transparent to-transparent pointer-events-none" />
 
       <div className="grid lg:grid-cols-2 gap-0">
         {/* Left – image gallery */}
-        <div className="relative h-72 lg:h-auto min-h-[300px] overflow-hidden">
+        <div className="relative h-56 lg:h-auto min-h-[260px] overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.img
               key={activeImg}
@@ -634,7 +661,7 @@ const SpeakerCard = () => {
         </div>
 
         {/* Right – details */}
-        <div className="p-8 lg:p-10 flex flex-col justify-center gap-5">
+        <div className="p-6 lg:p-8 flex flex-col justify-center gap-4">
           {/* Role badge */}
           <div className="inline-flex items-center gap-2 bg-violet-500/15 border border-violet-500/30 text-violet-300 rounded-full px-4 py-2 w-fit">
             <Mic size={15} />
@@ -649,7 +676,7 @@ const SpeakerCard = () => {
           <p className="text-neutral-400 text-sm leading-relaxed">{speak.description}</p>
 
           {/* Host */}
-          <div className="flex items-start gap-3 pt-4 border-t border-white/[0.06]">
+          <div className="flex items-start gap-3 pt-3 border-t border-white/[0.06]">
             <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mt-0.5">Hosted by</span>
             <span className="text-xs text-white leading-snug">{speak.host}</span>
           </div>
@@ -672,7 +699,7 @@ const NAV_ITEMS: { id: WebSection; label: string; icon: React.ElementType }[] = 
 // ─── Main ──────────────────────────────────────────────────────────────────
 
 interface WebPortfolioViewProps {
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 const WebPortfolioView: React.FC<WebPortfolioViewProps> = ({ onClose }) => {
@@ -702,15 +729,7 @@ const WebPortfolioView: React.FC<WebPortfolioViewProps> = ({ onClose }) => {
         className={`fixed top-0 left-0 right-0 z-[160] transition-all duration-300 ${scrolled ? 'bg-[#050505]/95 backdrop-blur-xl border-b border-white/[0.06]' : 'bg-transparent'
           }`}
       >
-        <div className="max-w-6xl mx-auto px-8 h-16 flex items-center justify-between">
-          {/* Logo / name */}
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10">
-              <img src={PORTFOLIO_DATA.photo} alt={PORTFOLIO_DATA.name} className="w-full h-full object-cover" />
-            </div>
-            <span className="font-semibold text-sm text-white">{PORTFOLIO_DATA.name}</span>
-          </div>
-
+        <div className="max-w-6xl mx-auto px-8 h-16 flex items-center justify-center relative">
           {/* Nav links */}
           <nav className="hidden md:flex items-center gap-1">
             {NAV_ITEMS.map((item) => (
@@ -728,14 +747,16 @@ const WebPortfolioView: React.FC<WebPortfolioViewProps> = ({ onClose }) => {
           </nav>
 
           {/* Close / back to mobile */}
+          {onClose && (
           <button
             onClick={onClose}
-            className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-neutral-400 bg-white/5 border border-white/10 rounded-full hover:text-white hover:bg-white/10 transition-all"
+            className="absolute right-8 flex items-center gap-2 px-4 py-2 text-xs font-medium text-neutral-400 bg-white/5 border border-white/10 rounded-full hover:text-white hover:bg-white/10 transition-all"
           >
             <Monitor size={14} />
             <span className="hidden sm:inline">Back to Mobile</span>
             <X size={14} />
           </button>
+          )}
         </div>
 
         {/* Mobile nav */}
@@ -760,7 +781,7 @@ const WebPortfolioView: React.FC<WebPortfolioViewProps> = ({ onClose }) => {
       </header>
 
       {/* Scrollable Content */}
-      <div id="web-portfolio-scroll" className="flex-1 overflow-y-auto scrollbar-hide pt-16">
+      <div id="web-portfolio-scroll" className="flex-1 overflow-y-auto scrollbar-hide pt-16 pb-16">
         {/* Subtle grid bg */}
         <div
           className="fixed inset-0 pointer-events-none opacity-[0.03]"
@@ -799,21 +820,22 @@ const WebPortfolioView: React.FC<WebPortfolioViewProps> = ({ onClose }) => {
           )}
         </AnimatePresence>
 
-        {/* Footer */}
-        <footer className="border-t border-white/[0.06] mt-8">
-          <div className="max-w-6xl mx-auto px-8 py-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-xs text-neutral-600">© 2025 {PORTFOLIO_DATA.name}. All rights reserved.</p>
-            <div className="flex items-center gap-4">
-              <a href="https://github.com/joshuafronda" target="_blank" rel="noopener noreferrer" className="text-neutral-600 hover:text-white transition-colors">
-                <Github size={16} />
-              </a>
-              <a href="https://www.linkedin.com/in/joshuafronda" target="_blank" rel="noopener noreferrer" className="text-neutral-600 hover:text-white transition-colors">
-                <Linkedin size={16} />
-              </a>
-            </div>
-          </div>
-        </footer>
       </div>
+
+      {/* Footer — fixed bottom */}
+      <footer className="fixed bottom-0 left-0 right-0 z-[155] border-t border-white/[0.06] bg-[#050505]/95 backdrop-blur-xl">
+        <div className="max-w-6xl mx-auto px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+          <p className="text-xs text-neutral-600">© 2025 {PORTFOLIO_DATA.name}. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <a href="https://github.com/joshuafronda" target="_blank" rel="noopener noreferrer" className="text-neutral-600 hover:text-white transition-colors">
+              <Github size={16} />
+            </a>
+            <a href="https://www.linkedin.com/in/joshuafronda" target="_blank" rel="noopener noreferrer" className="text-neutral-600 hover:text-white transition-colors">
+              <Linkedin size={16} />
+            </a>
+          </div>
+        </div>
+      </footer>
     </motion.div>
   );
 };

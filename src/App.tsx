@@ -9,6 +9,9 @@ import Careconnect from './img/CareConnect.png';
 import Easytizen from './img/EASYtizen.png';
 import MuniManage from './img/MuniManage.png';
 import SentinelFlow from './img/SentinelFlow.png';
+import ProjectGo1 from './img/projectgo1.png';
+import ProjectGo2 from './img/projectgo2.png';
+import CloudSync from './img/cloudsync.png';
 import RewardImg from './img/reward.jpeg';
 import ShotImg from './img/shot.jpeg';
 import Speaker1Img from './img/Speaker1.jpeg';
@@ -17,7 +20,7 @@ import Speaker3Img from './img/Speaker3.jpeg';
 import ShinyText from './ShinyText';
 import LogoLoop from '../components/LogoLoop';
 import Lanyard from './Lanyard';
-import WebPortfolioView from './WebPortfolioView';
+import WebPortfolioView from './WebPortfolioView';  
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Home,
@@ -63,6 +66,10 @@ const SKILL_LOGOS = [
   { node: <span className="text-red-500 font-semibold">Git</span>, title: "Git" },
   { node: <span className="text-orange-600 font-semibold">Ubuntu</span>, title: "Ubuntu" },
   { node: <span className="text-yellow-500 font-semibold">Firebase</span>, title: "Firebase" },
+  { node: <span className="text-cyan-300 font-semibold">Windsurf</span>, title: "Windsurf" },
+  { node: <span className="text-purple-300 font-semibold">Antigravity</span>, title: "Antigravity" },
+  { node: <span className="text-blue-400 font-semibold">Cursor</span>, title: "Cursor" },
+  { node: <span className="text-purple-500 font-semibold">Visual Studio</span>, title: "Visual Studio" },
 ];
 
 // --- Types & Data ---
@@ -74,10 +81,18 @@ const PORTFOLIO_DATA = {
   photo: profileImage,
   role: "Developer",
   location: "Batangas, PH",
-  status: "IT/CS Instructor",
-  bio: "A dedicated and results-driven professional with experience in web and mobile development.",
+  status: "IT Instructor",
+  bio: "A dedicated and results-driven professional with experience in web and mobile development. AI Prompt Engineer — leveraging tools like Claude, Gemini, GLM, SWE, ChatGPT, Kimi, and Cursor to accelerate development workflows and deliver quality solutions.",
   binaryText: "0000110001 0110 000 00110111 0010110000 000 0010000 10110001 0010000 01 10010111000 011010100000 101 100110100010 00000111 00001101100 010 1101010 10011000",
   projects: [
+    {
+      id: 'p5',
+      title: 'Project Go',
+      category: 'Project Management',
+      desc: 'Role-Based Workflows — Rigid permissions mapped to Owners, Managers, Finance, and Engineers. View only what matters to you. Real-time Messaging — Built-in direct messages and channels. Keep conversations attached to the project context. Budget Tracking — Live financial dashboards. Monitor allocation vs. expenditure securely without third-party tools. Smart Contracts — Generate professional Project Charters dynamically from your form inputs. Signed, sealed, delivered. Milestone Tracking — Break projects down to deliverables. Require strict sign-offs to pass progression gates.',
+      images: [ProjectGo1, ProjectGo2],
+      link: '',
+    },
     {
       id: 'p1',
       title: 'EASYtizen',
@@ -109,7 +124,15 @@ const PORTFOLIO_DATA = {
       desc: 'Observability and workflow platform with developer dashboard.',
       images: [SentinelFlow],
       link: 'https://sentinel-flow.vercel.app/',
-    }
+    },
+    {
+      id: 'p6',
+      title: 'CloudSync',
+      category: 'Collaboration',
+      desc: 'Streamline your workflow, collaborate seamlessly, and deliver projects on time. CloudSync is the all-in-one platform for modern teams.',
+      images: [CloudSync],
+      link: ''
+    },
   ],
   experience: [
     {
@@ -126,7 +149,7 @@ const PORTFOLIO_DATA = {
     {
       role: 'IT/CS Instructor',
       company: 'Batangas State University TNEU - Alangilan Campus',
-      year: 'PRESENT',
+      year: '2025 - PRESENT',
       details: [
         'Teaching Advanced Computer Programming & Networking courses',
         'Teaching Mobile Computing and Mobile Development',
@@ -147,11 +170,13 @@ const PORTFOLIO_DATA = {
     },
   ],
   skills: [
-    'HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Tailwind CSS',
-    'Flutter', 'Vite', 'Python', 'Django', 'PHP', 'WordPress',
-    'Nginx', 'MySQL', 'PostgreSQL', 'MongoDB', 'Git', 'Ubuntu', 'Firebase'
+    'HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'React Native', 'Tailwind CSS',
+    'Flutter', 'Kotlin', 'Java', 'Vite', 'Python', 'Django', 'PHP', 'WordPress',
+    'Nginx', 'MySQL', 'PostgreSQL', 'MongoDB', 'Git', 'Ubuntu', 'Firebase',
+    'Windsurf', 'Antigravity', 'Cursor', 'Visual Studio'
   ],
   certifications: [
+    { title: 'Certificate of Achievement – Second Prize Innovation Track', issuer: 'Huawei ICT Competition', date: 'Dec 2025' },
     { title: 'Cybersecurity', issuer: 'Asian Development Bank (ADB)', date: 'Dec 2025', id: '145749-176-472-9154' },
     { title: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate', issuer: 'Oracle', date: 'Dec 2025' },
     { title: 'Introduction to Data Science', issuer: 'Cisco', date: 'Nov 2025' },
@@ -631,9 +656,10 @@ const ProjectsScreen = () => {
             key={project.id}
             variants={fadeUpVariant}
             className="glass-card rounded-[2rem] p-0 group cursor-pointer hover:border-white/20 transition-all relative overflow-hidden min-h-[320px] flex flex-col justify-end"
-            onClick={() => window.open(project.link, '_blank', 'noopener,noreferrer')}
+            onClick={() => project.link && window.open(project.link, '_blank', 'noopener,noreferrer')}
           >
             {/* Fading Background Image */}
+            {project.images[0] ? (
             <div className="absolute inset-0 w-full h-full z-0">
               <img
                 src={project.images[0]}
@@ -642,6 +668,9 @@ const ProjectsScreen = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent" />
             </div>
+            ) : (
+            <div className="absolute inset-0 w-full h-full z-0 bg-gradient-to-br from-white/[0.03] to-transparent" />
+            )}
 
             {/* Top Bar */}
             <div className="absolute top-6 left-6 right-6 flex justify-between items-start z-10">
@@ -749,7 +778,18 @@ const CertificationsScreen = () => {
 
 // --- Main App Component ---
 
+const useIsDesktop = () => {
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  return isDesktop;
+};
+
 export default function App() {
+  const isDesktop = useIsDesktop();
   const [activeTab, setActiveTab] = useState<TabId>('home');
   const [isPhotoOpen, setIsPhotoOpen] = useState(false);
   const [showWebView, setShowWebView] = useState(false);
@@ -760,6 +800,11 @@ export default function App() {
     { id: 'profile', icon: User, label: 'Profile' },
     { id: 'certs', icon: Award, label: 'Certs' },
   ];
+
+  // Desktop: show WebPortfolioView directly
+  if (isDesktop && !showWebView) {
+    return <WebPortfolioView />;
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#000000] font-sans selection:bg-white/30">
@@ -791,18 +836,6 @@ export default function App() {
 
         {/* Floating Bottom Navigation + Profile Preview */}
         <div className="absolute bottom-0 w-full pb-safe pt-8 px-6 z-25 sm:pb-8 pointer-events-none bg-gradient-to-t from-black via-black/80 to-transparent">
-
-          {/* Web View pill — centered above the nav bar */}
-          <div className="flex justify-center mb-2 pointer-events-auto">
-            <button
-              onClick={() => setShowWebView(true)}
-              title="Preview Web Version"
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#0A0A0A] border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all shadow-lg"
-            >
-              <Monitor size={12} className="text-neutral-500" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">Web View</span>
-            </button>
-          </div>
 
           <nav className="bg-[#0A0A0A] border border-white/10 rounded-full p-1.5 mb-2 flex justify-between items-center relative pointer-events-auto shadow-2xl backdrop-blur-xl">
             {tabs.map((tab) => {
@@ -864,7 +897,7 @@ export default function App() {
         </AnimatePresence>
       </div>
 
-      {/* Web Portfolio View Overlay */}
+      {/* Web Portfolio View Overlay (from mobile "Web View" button) */}
       <AnimatePresence>
         {showWebView && (
           <WebPortfolioView onClose={() => setShowWebView(false)} />
