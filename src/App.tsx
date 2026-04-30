@@ -33,6 +33,8 @@ import Speaker2Img from './img/Speaker2.jpeg';
 
 import Speaker3Img from './img/Speaker3.jpeg';
 
+import V1Portfolio from './img/V1-portfolio.png';
+
 import ShinyText from './ShinyText';
 
 import LogoLoop from '../components/LogoLoop';
@@ -83,7 +85,9 @@ import {
 
   Medal,
 
-  Mic
+  Mic,
+
+  GraduationCap
 
 } from 'lucide-react';
 
@@ -167,6 +171,14 @@ const PORTFOLIO_DATA = {
 
   binaryText: "0000110001 0110 000 00110111 0010110000 000 0010000 10110001 0010000 01 10010111000 011010100000 101 100110100010 00000111 00001101100 010 1101010 10011000",
 
+  education: [
+
+    { degree: 'Bachelor of Science in Information Technology', major: 'Business Analytics', period: '2021 – 2025' },
+
+    { degree: 'Master of Information Technology', major: '', period: '2025 – Present' },
+
+  ],
+
   projects: [
 
     {
@@ -246,6 +258,22 @@ const PORTFOLIO_DATA = {
       images: [SentinelFlow],
 
       link: 'https://sentinel-flow.vercel.app/',
+
+    },
+
+    {
+
+      id: 'p6',
+
+      title: 'V1 Portfolio',
+
+      category: 'Web Development',
+
+      desc: 'First version of my personal portfolio website — showcasing projects, skills, and experience with a clean, responsive design.',
+
+      images: [V1Portfolio],
+
+      link: 'https://v1project.vercel.app/',
 
     },
 
@@ -841,6 +869,28 @@ const HomeScreen = ({ onNavigate, onOpenPhoto }: { onNavigate: (tab: TabId) => v
 
           </p>
 
+          <div className="space-y-1.5 mt-3">
+
+            {PORTFOLIO_DATA.education.map((edu) => (
+
+              <div key={edu.period} className="flex items-start gap-1.5">
+
+                <GraduationCap size={12} className="text-neutral-500 mt-0.5 shrink-0" />
+
+                <div>
+
+                  <p className="text-[11px] text-white font-medium leading-tight">{edu.degree}{edu.major ? ` Major in ${edu.major}` : ''}</p>
+
+                  <p className="text-[10px] text-neutral-500">{edu.period}</p>
+
+                </div>
+
+              </div>
+
+            ))}
+
+          </div>
+
         </div>
 
       </motion.div>
@@ -1283,91 +1333,116 @@ const ProjectsScreen = () => {
 
 
 
-      <div className="flex flex-col gap-4">
+      <div className="space-y-8">
 
-        {PORTFOLIO_DATA.projects.map((project, idx) => (
+        {Object.entries(
+          PORTFOLIO_DATA.projects.reduce<Record<string, typeof PORTFOLIO_DATA.projects>>((acc, project) => {
+            const cat = project.category;
+            if (!acc[cat]) acc[cat] = [];
+            acc[cat].push(project);
+            return acc;
+          }, {})
+        ).map(([category, projects]) => (
 
-          <motion.div
+          <div key={category}>
 
-            key={project.id}
+            <motion.div variants={fadeUpVariant} className="mb-3">
 
-            variants={fadeUpVariant}
+              <p className="micro-label">{category}</p>
 
-            className="glass-card rounded-[2rem] p-0 group cursor-pointer hover:border-white/20 transition-all relative overflow-hidden min-h-[320px] flex flex-col justify-end"
+            </motion.div>
 
-            onClick={() => project.link && window.open(project.link, '_blank', 'noopener,noreferrer')}
+            <div className="flex flex-col gap-4">
 
-          >
+              {projects.map((project, idx) => (
 
-            {/* Fading Background Image */}
+                <motion.div
 
-            {project.images[0] ? (
+                  key={project.id}
 
-            <div className="absolute inset-0 w-full h-full z-0">
+                  variants={fadeUpVariant}
 
-              <img
+                  className="glass-card rounded-[2rem] p-0 group cursor-pointer hover:border-white/20 transition-all relative overflow-hidden min-h-[320px] flex flex-col justify-end"
 
-                src={project.images[0]}
+                  onClick={() => project.link && window.open(project.link, '_blank', 'noopener,noreferrer')}
 
-                alt={project.title}
+                >
 
-                className="w-full h-full object-cover opacity-30 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 ease-out"
+                  {/* Fading Background Image */}
 
-              />
+                  {project.images[0] ? (
 
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent" />
+                  <div className="absolute inset-0 w-full h-full z-0">
+
+                    <img
+
+                      src={project.images[0]}
+
+                      alt={project.title}
+
+                      className="w-full h-full object-cover opacity-30 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 ease-out"
+
+                    />
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent" />
+
+                  </div>
+
+                  ) : (
+
+                  <div className="absolute inset-0 w-full h-full z-0 bg-gradient-to-br from-white/[0.03] to-transparent" />
+
+                  )}
+
+
+
+                  {/* Top Bar */}
+
+                  <div className="absolute top-6 left-6 right-6 flex justify-between items-start z-10">
+
+                    <div className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center">
+
+                      <span className="font-mono text-xs text-neutral-300">0{idx + 1}</span>
+
+                    </div>
+
+                    <div className="flex gap-2">
+
+                      <div className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:bg-white transition-colors">
+
+                        <ArrowUpRight size={20} className="text-white group-hover:text-black transition-colors" />
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+
+
+                  {/* Content */}
+
+                  <div className="relative z-10 p-6 pt-12">
+
+                    <p className="micro-label mb-2 text-white/70">{project.category}</p>
+
+                    <h3 className="text-xl font-semibold text-white mb-3">{project.title}</h3>
+
+                    <p className="text-sm text-neutral-400 leading-relaxed line-clamp-3">
+
+                      {project.desc}
+
+                    </p>
+
+                  </div>
+
+                </motion.div>
+
+              ))}
 
             </div>
 
-            ) : (
-
-            <div className="absolute inset-0 w-full h-full z-0 bg-gradient-to-br from-white/[0.03] to-transparent" />
-
-            )}
-
-
-
-            {/* Top Bar */}
-
-            <div className="absolute top-6 left-6 right-6 flex justify-between items-start z-10">
-
-              <div className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center">
-
-                <span className="font-mono text-xs text-neutral-300">0{idx + 1}</span>
-
-              </div>
-
-              <div className="flex gap-2">
-
-                <div className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:bg-white transition-colors">
-
-                  <ArrowUpRight size={20} className="text-white group-hover:text-black transition-colors" />
-
-                </div>
-
-              </div>
-
-            </div>
-
-
-
-            {/* Content */}
-
-            <div className="relative z-10 p-6 pt-12">
-
-              <p className="micro-label mb-2 text-white/70">{project.category}</p>
-
-              <h3 className="text-xl font-semibold text-white mb-3">{project.title}</h3>
-
-              <p className="text-sm text-neutral-400 leading-relaxed line-clamp-3">
-
-                {project.desc}
-
-              </p>
-
-            </div>
-
-          </motion.div>
+          </div>
 
         ))}
 

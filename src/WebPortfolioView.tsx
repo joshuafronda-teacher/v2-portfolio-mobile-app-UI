@@ -40,7 +40,11 @@ import Speaker2Img from './img/Speaker2.jpeg';
 
 import Speaker3Img from './img/Speaker3.jpeg';
 
+import V1Portfolio from './img/V1-portfolio.png';
+
 import { motion, AnimatePresence } from 'motion/react';
+
+import StaggeredMenu from './StaggeredMenu';
 
 import {
 
@@ -86,6 +90,8 @@ import {
 
   Mic,
 
+  GraduationCap,
+
 } from 'lucide-react';
 
 import BorderGlow from './BorderGlow';
@@ -111,6 +117,14 @@ const PORTFOLIO_DATA = {
   bio: 'A dedicated and results-driven professional with experience in web and mobile development. AI Prompt Engineer — leveraging tools like Claude, Gemini, GLM, SWE, ChatGPT, Kimi, and Cursor to accelerate development workflows and deliver quality solutions.',
 
   email: 'joshuafronda@email.com',
+
+  education: [
+
+    { degree: 'Bachelor of Science in Information Technology', major: 'Business Analytics', period: '2021 – 2025' },
+
+    { degree: 'Master of Information Technology', major: '', period: '2025 – Present' },
+
+  ],
 
   projects: [
 
@@ -191,6 +205,22 @@ const PORTFOLIO_DATA = {
       images: [SentinelFlow],
 
       link: 'https://sentinel-flow.vercel.app/',
+
+    },
+
+    {
+
+      id: 'p6',
+
+      title: 'V1 Portfolio',
+
+      category: 'Web Development',
+
+      desc: 'First version of my personal portfolio website — showcasing projects, skills, and experience with a clean, responsive design.',
+
+      images: [V1Portfolio],
+
+      link: 'https://v1project.vercel.app/',
 
     },
 
@@ -542,7 +572,7 @@ const HomeSection = ({ onNavigate }: { onNavigate: (s: WebSection) => void }) =>
 
   return (
 
-    <motion.section variants={stagger} initial="hidden" animate="show" className="min-h-screen flex flex-col justify-center max-w-6xl mx-auto px-8 py-16 gap-10">
+    <motion.section variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }} className="min-h-screen flex flex-col justify-center max-w-6xl mx-auto px-8 py-16 gap-10">
 
       {/* Hero */}
 
@@ -585,6 +615,28 @@ const HomeSection = ({ onNavigate }: { onNavigate: (s: WebSection) => void }) =>
             {PORTFOLIO_DATA.bio}
 
           </p>
+
+          <div className="space-y-2 mb-6">
+
+            {PORTFOLIO_DATA.education.map((edu) => (
+
+              <div key={edu.period} className="flex items-start gap-2">
+
+                <GraduationCap size={14} className="text-neutral-500 mt-1 shrink-0" />
+
+                <div>
+
+                  <p className="text-sm text-white font-medium">{edu.degree}{edu.major ? ` Major in ${edu.major}` : ''}</p>
+
+                  <p className="text-xs text-neutral-500">{edu.period}</p>
+
+                </div>
+
+              </div>
+
+            ))}
+
+          </div>
 
           <div className="flex flex-wrap gap-3">
 
@@ -738,7 +790,7 @@ const ProjectsSection = () => {
 
   return (
 
-    <motion.section variants={stagger} initial="hidden" animate="show" className="max-w-6xl mx-auto px-8 py-16">
+    <motion.section variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }} className="max-w-6xl mx-auto px-8 py-16">
 
       <motion.div variants={fadeUp} className="mb-8">
 
@@ -752,135 +804,160 @@ const ProjectsSection = () => {
 
 
 
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="space-y-10">
 
-        {PORTFOLIO_DATA.projects.map((project, idx) => (
+        {Object.entries(
+          PORTFOLIO_DATA.projects.reduce<Record<string, typeof PORTFOLIO_DATA.projects>>((acc, project) => {
+            const cat = project.category;
+            if (!acc[cat]) acc[cat] = [];
+            acc[cat].push(project);
+            return acc;
+          }, {})
+        ).map(([category, projects]) => (
 
-          <motion.div
+          <div key={category}>
 
-            key={project.id}
+            <motion.div variants={fadeUp} className="mb-4">
 
-            variants={fadeUp}
+              <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-1">{category}</p>
 
-            className="h-full"
+            </motion.div>
 
-          >
+            <div className="grid md:grid-cols-2 gap-4">
 
-            <BorderGlow
+              {projects.map((project, idx) => (
 
-              edgeSensitivity={30}
+                <motion.div
 
-              glowColor="40 80 80"
+                  key={project.id}
 
-              backgroundColor="#0A0A0A"
+                  variants={fadeUp}
 
-              borderRadius={24}
+                  className="h-full"
 
-              glowRadius={40}
+                >
 
-              glowIntensity={1}
+                  <BorderGlow
 
-              coneSpread={25}
+                    edgeSensitivity={30}
 
-              animated={false}
+                    glowColor="40 80 80"
 
-              colors={['#c084fc', '#f472b6', '#38bdf8']}
+                    backgroundColor="#0A0A0A"
 
-              fillOpacity={0.5}
+                    borderRadius={24}
 
-              className="h-full"
+                    glowRadius={40}
 
-            >
+                    glowIntensity={1}
 
-              <div
+                    coneSpread={25}
 
-                className="group relative rounded-3xl overflow-hidden bg-[#0A0A0A] cursor-pointer min-h-[280px] flex flex-col justify-end h-full"
+                    animated={false}
 
-                onClick={() => project.link && window.open(project.link, '_blank', 'noopener,noreferrer')}
+                    colors={['#c084fc', '#f472b6', '#38bdf8']}
 
-              >
+                    fillOpacity={0.5}
 
-            {/* BG Image */}
+                    className="h-full"
 
-            {project.images[0] ? (
+                  >
 
-            <div className="absolute inset-0">
+                    <div
 
-              <img
+                      className="group relative rounded-3xl overflow-hidden bg-[#0A0A0A] cursor-pointer min-h-[280px] flex flex-col justify-end h-full"
 
-                src={project.images[0]}
+                      onClick={() => project.link && window.open(project.link, '_blank', 'noopener,noreferrer')}
 
-                alt={project.title}
+                    >
 
-                className="w-full h-full object-cover opacity-25 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700 ease-out"
+                  {/* BG Image */}
 
-              />
+                  {project.images[0] ? (
 
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/70 to-transparent" />
+                  <div className="absolute inset-0">
+
+                    <img
+
+                      src={project.images[0]}
+
+                      alt={project.title}
+
+                      className="w-full h-full object-cover opacity-25 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700 ease-out"
+
+                    />
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/70 to-transparent" />
+
+                  </div>
+
+                  ) : (
+
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent" />
+
+                  )}
+
+
+
+                  {/* Top bar */}
+
+                  <div className="absolute top-6 left-6 right-6 flex justify-between items-start z-10">
+
+                    <span className="font-mono text-[10px] text-neutral-500 bg-black/50 backdrop-blur-md border border-white/10 rounded-full px-3 py-1">
+
+                      0{idx + 1}
+
+                    </span>
+
+                    <div className="w-9 h-9 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:bg-white transition-colors">
+
+                      <ArrowUpRight size={16} className="text-white group-hover:text-black transition-colors" />
+
+                    </div>
+
+                  </div>
+
+
+
+                  {/* Content */}
+
+                  <div className="relative z-10 p-6">
+
+                    <p className="font-mono text-[10px] uppercase tracking-widest text-white/50 mb-2">{project.category}</p>
+
+                    <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
+
+                    <p className="text-sm text-neutral-400 leading-relaxed line-clamp-2">{project.desc}</p>
+
+                    {project.images.length > 0 && (
+
+                    <button
+
+                      onClick={(e) => { e.stopPropagation(); setModal({ images: project.images, title: project.title }); }}
+
+                      className="mt-4 text-xs font-mono text-neutral-500 hover:text-white transition-colors flex items-center gap-1"
+
+                    >
+
+                      Preview screenshot →
+
+                    </button>
+
+                    )}
+
+                  </div>
+
+                    </div>
+
+                  </BorderGlow>
+
+                </motion.div>
+
+              ))}
 
             </div>
 
-            ) : (
-
-            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent" />
-
-            )}
-
-
-
-            {/* Top bar */}
-
-            <div className="absolute top-6 left-6 right-6 flex justify-between items-start z-10">
-
-              <span className="font-mono text-[10px] text-neutral-500 bg-black/50 backdrop-blur-md border border-white/10 rounded-full px-3 py-1">
-
-                0{idx + 1}
-
-              </span>
-
-              <div className="w-9 h-9 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:bg-white transition-colors">
-
-                <ArrowUpRight size={16} className="text-white group-hover:text-black transition-colors" />
-
-              </div>
-
-            </div>
-
-
-
-            {/* Content */}
-
-            <div className="relative z-10 p-6">
-
-              <p className="font-mono text-[10px] uppercase tracking-widest text-white/50 mb-2">{project.category}</p>
-
-              <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
-
-              <p className="text-sm text-neutral-400 leading-relaxed line-clamp-2">{project.desc}</p>
-
-              {project.images.length > 0 && (
-
-              <button
-
-                onClick={(e) => { e.stopPropagation(); setModal({ images: project.images, title: project.title }); }}
-
-                className="mt-4 text-xs font-mono text-neutral-500 hover:text-white transition-colors flex items-center gap-1"
-
-              >
-
-                Preview screenshot →
-
-              </button>
-
-              )}
-
-            </div>
-
-              </div>
-
-            </BorderGlow>
-
-          </motion.div>
+          </div>
 
         ))}
 
@@ -908,7 +985,7 @@ const ProjectsSection = () => {
 
 const ExperienceSection = () => (
 
-  <motion.section variants={stagger} initial="hidden" animate="show" className="max-w-6xl mx-auto px-8 py-16">
+  <motion.section variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }} className="max-w-6xl mx-auto px-8 py-16">
 
     <motion.div variants={fadeUp} className="mb-8">
 
@@ -1014,7 +1091,7 @@ const ExperienceSection = () => (
 
 const CertificationsSection = () => (
 
-  <motion.section variants={stagger} initial="hidden" animate="show" className="max-w-6xl mx-auto px-8 py-16">
+  <motion.section variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }} className="max-w-6xl mx-auto px-8 py-16">
 
     <motion.div variants={fadeUp} className="mb-8">
 
@@ -1124,7 +1201,7 @@ const AchievementSection = () => {
 
   return (
 
-    <motion.section variants={stagger} initial="hidden" animate="show" className="max-w-6xl mx-auto px-8 py-16">
+    <motion.section variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }} className="max-w-6xl mx-auto px-8 py-16">
 
       <motion.div variants={fadeUp} className="mb-8">
 
@@ -1558,7 +1635,19 @@ const WebPortfolioView: React.FC<WebPortfolioViewProps> = ({ onClose }) => {
 
 
 
+  const scrollToSection = (id: WebSection) => {
+    const el = document.getElementById(`section-${id}`);
+    const container = document.getElementById('web-portfolio-scroll');
+    if (el && container) {
+      const offset = el.offsetTop - 80;
+      container.scrollTo({ top: offset, behavior: 'smooth' });
+    }
+    setActiveSection(id);
+  };
+
   useEffect(() => {
+
+    const container = document.getElementById('web-portfolio-scroll');
 
     const handleScroll = (e: Event) => {
 
@@ -1566,13 +1655,20 @@ const WebPortfolioView: React.FC<WebPortfolioViewProps> = ({ onClose }) => {
 
       setScrolled(target.scrollTop > 40);
 
+      const sectionIds: WebSection[] = ['home', 'projects', 'experience', 'certs', 'achievements'];
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const sec = document.getElementById(`section-${sectionIds[i]}`);
+        if (sec && sec.offsetTop - 120 <= target.scrollTop) {
+          setActiveSection(sectionIds[i]);
+          break;
+        }
+      }
+
     };
 
-    const el = document.getElementById('web-portfolio-scroll');
+    container?.addEventListener('scroll', handleScroll);
 
-    el?.addEventListener('scroll', handleScroll);
-
-    return () => el?.removeEventListener('scroll', handleScroll);
+    return () => container?.removeEventListener('scroll', handleScroll);
 
   }, []);
 
@@ -1594,115 +1690,77 @@ const WebPortfolioView: React.FC<WebPortfolioViewProps> = ({ onClose }) => {
 
     >
 
-      {/* Top Navigation Bar */}
+      {/* Staggered Menu Navigation */}
 
-      <header
+      <StaggeredMenu
 
-        className={`fixed top-0 left-0 right-0 z-[160] transition-all duration-300 ${scrolled ? 'bg-[#050505]/95 backdrop-blur-xl border-b border-white/[0.06]' : 'bg-transparent'
+        position="right"
 
-          }`}
+        isFixed={true}
 
-      >
+        items={[
 
-        <div className="max-w-6xl mx-auto px-8 h-16 flex items-center justify-center relative">
+          { label: 'Home', ariaLabel: 'Go to home section', onClick: () => scrollToSection('home') },
 
-          {/* Nav links */}
+          { label: 'Projects', ariaLabel: 'View projects', onClick: () => scrollToSection('projects') },
 
-          <nav className="hidden md:flex items-center gap-1">
+          { label: 'Experience', ariaLabel: 'View experience', onClick: () => scrollToSection('experience') },
 
-            {NAV_ITEMS.map((item) => (
+          { label: 'Certs', ariaLabel: 'View certifications', onClick: () => scrollToSection('certs') },
 
-              <button
+          { label: 'Achievements', ariaLabel: 'View achievements', onClick: () => scrollToSection('achievements') },
 
-                key={item.id}
+        ]}
 
-                onClick={() => setActiveSection(item.id)}
+        socialItems={[
 
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${activeSection === item.id
+          { label: 'GitHub', link: 'https://github.com/joshuafronda' },
 
-                  ? 'bg-white/10 text-white'
+          { label: 'LinkedIn', link: 'https://www.linkedin.com/in/joshuafronda' },
 
-                  : 'text-neutral-500 hover:text-white hover:bg-white/5'
+        ]}
 
-                  }`}
+        displaySocials={true}
 
-              >
+        displayItemNumbering={true}
 
-                {item.label}
+        menuButtonColor="#fff"
 
-              </button>
+        openMenuButtonColor="#fff"
 
-            ))}
+        changeMenuColorOnOpen={true}
 
-          </nav>
+        colors={['#1e1e22', '#35353c', '#4a4a54', '#5f5f6c']}
 
+        accentColor="#c084fc"
 
+        closeOnClickAway={true}
 
-          {/* Close / back to mobile */}
-
-          {onClose && (
-
-          <button
-
-            onClick={onClose}
-
-            className="absolute right-8 flex items-center gap-2 px-4 py-2 text-xs font-medium text-neutral-400 bg-white/5 border border-white/10 rounded-full hover:text-white hover:bg-white/10 transition-all"
-
-          >
-
-            <Monitor size={14} />
-
-            <span className="hidden sm:inline">Back to Mobile</span>
-
-            <X size={14} />
-
-          </button>
-
-          )}
-
-        </div>
+      />
 
 
 
-        {/* Mobile nav */}
+      {/* Close / back to mobile button */}
 
-        <div className="md:hidden flex items-center gap-1 px-4 pb-3 overflow-x-auto scrollbar-hide">
+      {onClose && (
 
-          {NAV_ITEMS.map((item) => {
+        <button
 
-            const Icon = item.icon;
+          onClick={onClose}
 
-            return (
+          className="fixed top-4 right-24 z-[161] flex items-center gap-2 px-4 py-2 text-xs font-medium text-neutral-400 bg-white/5 border border-white/10 rounded-full hover:text-white hover:bg-white/10 transition-all"
 
-              <button
+        >
 
-                key={item.id}
+          <Monitor size={14} />
 
-                onClick={() => setActiveSection(item.id)}
+          <span className="hidden sm:inline">Back to Mobile</span>
 
-                className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${activeSection === item.id
+          <X size={14} />
 
-                  ? 'bg-white/10 text-white'
+        </button>
 
-                  : 'text-neutral-500 hover:text-white'
-
-                  }`}
-
-              >
-
-                <Icon size={13} />
-
-                {item.label}
-
-              </button>
-
-            );
-
-          })}
-
-        </div>
-
-      </header>
+      )}
 
 
 
@@ -1710,17 +1768,15 @@ const WebPortfolioView: React.FC<WebPortfolioViewProps> = ({ onClose }) => {
 
       <div id="web-portfolio-scroll" className="flex-1 overflow-y-auto scrollbar-hide pt-16 pb-16">
 
-        {/* Subtle grid bg */}
+
 
         <div
 
-          className="fixed inset-0 pointer-events-none opacity-[0.03]"
+          className="absolute inset-0 pointer-events-none z-0 opacity-30"
 
           style={{
 
-            backgroundImage:
-
-              'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
+            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)',
 
             backgroundSize: '60px 60px',
 
@@ -1730,59 +1786,35 @@ const WebPortfolioView: React.FC<WebPortfolioViewProps> = ({ onClose }) => {
 
 
 
-        <AnimatePresence mode="wait">
+        <div id="section-home">
 
-          {activeSection === 'home' && (
+          <HomeSection onNavigate={scrollToSection} />
 
-            <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        </div>
 
-              <HomeSection onNavigate={setActiveSection} />
+        <div id="section-projects">
 
-            </motion.div>
+          <ProjectsSection />
 
-          )}
+        </div>
 
-          {activeSection === 'projects' && (
+        <div id="section-experience">
 
-            <motion.div key="projects" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          <ExperienceSection />
 
-              <ProjectsSection />
+        </div>
 
-            </motion.div>
+        <div id="section-certs">
 
-          )}
+          <CertificationsSection />
 
-          {activeSection === 'experience' && (
+        </div>
 
-            <motion.div key="experience" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <div id="section-achievements">
 
-              <ExperienceSection />
+          <AchievementSection />
 
-            </motion.div>
-
-          )}
-
-          {activeSection === 'certs' && (
-
-            <motion.div key="certs" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-
-              <CertificationsSection />
-
-            </motion.div>
-
-          )}
-
-          {activeSection === 'achievements' && (
-
-            <motion.div key="achievements" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-
-              <AchievementSection />
-
-            </motion.div>
-
-          )}
-
-        </AnimatePresence>
+        </div>
 
 
 
@@ -1790,33 +1822,6 @@ const WebPortfolioView: React.FC<WebPortfolioViewProps> = ({ onClose }) => {
 
 
 
-      {/* Footer — fixed bottom */}
-
-      <footer className="fixed bottom-0 left-0 right-0 z-[155] border-t border-white/[0.06] bg-[#050505]/95 backdrop-blur-xl">
-
-        <div className="max-w-6xl mx-auto px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
-
-          <p className="text-xs text-neutral-600">© 2025 {PORTFOLIO_DATA.name}. All rights reserved.</p>
-
-          <div className="flex items-center gap-4">
-
-            <a href="https://github.com/joshuafronda" target="_blank" rel="noopener noreferrer" className="text-neutral-600 hover:text-white transition-colors">
-
-              <Github size={16} />
-
-            </a>
-
-            <a href="https://www.linkedin.com/in/joshuafronda" target="_blank" rel="noopener noreferrer" className="text-neutral-600 hover:text-white transition-colors">
-
-              <Linkedin size={16} />
-
-            </a>
-
-          </div>
-
-        </div>
-
-      </footer>
 
     </motion.div>
 

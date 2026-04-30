@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Background circle with white border -->
+  <circle cx="50" cy="50" r="46" fill="none" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="50" cy="50" r="44" fill="#000000"/>
+  
+  <!-- J letter -->
+  <text x="28" y="62" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-size="32" font-weight="700" fill="#ffffff">J</text>
+  
+  <!-- F letter -->
+  <text x="52" y="62" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-size="32" font-weight="700" fill="#ffffff">F</text>
+</svg>
