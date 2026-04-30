@@ -92,6 +92,10 @@ import {
 
   GraduationCap,
 
+  MessageCircle,
+
+  BookOpen,
+
 } from 'lucide-react';
 
 import BorderGlow from './BorderGlow';
@@ -141,6 +145,8 @@ const PORTFOLIO_DATA = {
       images: [ProjectGo1, ProjectGo2],
 
       link: '',
+
+      pdfLink: 'https://drive.google.com/file/d/1TFsXDxQFCUo3H0vX_Gxl7UNzph3KnqdO/view?usp=drive_link',
 
     },
 
@@ -564,37 +570,71 @@ const ImageModal = ({
 
 
 
+const TYPING_LINES = [
+  { prefix: '→ ', text: 'Installing Master of Information Technology...', delay: 45 },
+  { prefix: '  ', text: '2025 – Present · in progress', delay: 35 },
+  { prefix: '✓ ', text: 'BSIT · Business Analytics · 2021-2025 [completed]', delay: 30 },
+
+];
+
+const useTypingEffect = (lines: typeof TYPING_LINES) => {
+  const [displayedLines, setDisplayedLines] = useState<string[]>([]);
+  const [currentLine, setCurrentLine] = useState(0);
+  const [currentChar, setCurrentChar] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
+
+  useEffect(() => {
+    if (currentLine >= lines.length) {
+      setIsComplete(true);
+      return;
+    }
+    const line = lines[currentLine];
+    if (currentChar < line.text.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedLines(prev => {
+          const updated = [...prev];
+          updated[currentLine] = line.prefix + line.text.slice(0, currentChar + 1);
+          return updated;
+        });
+        setCurrentChar(c => c + 1);
+      }, line.delay);
+      return () => clearTimeout(timeout);
+    } else {
+      const timeout = setTimeout(() => {
+        setCurrentLine(l => l + 1);
+        setCurrentChar(0);
+      }, 400);
+      return () => clearTimeout(timeout);
+    }
+  }, [currentLine, currentChar, lines]);
+
+  return { displayedLines, isTyping: !isComplete };
+};
+
 const HomeSection = ({ onNavigate }: { onNavigate: (s: WebSection) => void }) => {
 
   const time = useTime();
-
+  const { displayedLines: typedLines, isTyping } = useTypingEffect(TYPING_LINES);
 
 
   return (
 
-    <motion.section variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }} className="min-h-screen flex flex-col justify-center max-w-6xl mx-auto px-8 py-16 gap-10">
+    <motion.section variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }} className="min-h-screen flex flex-col justify-center max-w-6xl mx-auto px-8 py-16 gap-12 relative overflow-hidden">
 
       {/* Hero */}
 
-      <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-8 items-center">
+      <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-10 items-center">
+    
+        <div className="relative z-10">
 
-        <div>
+          <div className="flex items-center gap-2 mb-5">
 
-          <div className="flex items-center gap-2 mb-4">
-
-            <span className="relative flex h-2.5 w-2.5">
-
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
-
-            </span>
-
+  
             <span className="font-mono text-[11px] uppercase tracking-widest text-emerald-500/80">Open to Opportunities</span>
 
           </div>
 
-          <h1 className="text-6xl lg:text-7xl font-semibold tracking-tight text-white leading-[1.05] mb-3">
+          <h1 className="text-5xl lg:text-7xl font-semibold tracking-tight text-white leading-[1.05] mb-3">
 
             {PORTFOLIO_DATA.name}
 
@@ -618,21 +658,15 @@ const HomeSection = ({ onNavigate }: { onNavigate: (s: WebSection) => void }) =>
 
           <div className="space-y-2 mb-6">
 
-            {PORTFOLIO_DATA.education.map((edu) => (
+              {PORTFOLIO_DATA.education.map((edu) => (
 
-              <div key={edu.period} className="flex items-start gap-2">
+                <div key={edu.period} className="flex items-start gap-2">
 
-                <GraduationCap size={14} className="text-neutral-500 mt-1 shrink-0" />
 
-                <div>
 
-                  <p className="text-sm text-white font-medium">{edu.degree}{edu.major ? ` Major in ${edu.major}` : ''}</p>
-
-                  <p className="text-xs text-neutral-500">{edu.period}</p>
+              
 
                 </div>
-
-              </div>
 
             ))}
 
@@ -706,35 +740,75 @@ const HomeSection = ({ onNavigate }: { onNavigate: (s: WebSection) => void }) =>
 
 
 
-        {/* Profile photo */}
+        {/* Terminal + Floating Cards */}
 
-        <div className="flex justify-center lg:justify-end">
+        <div className="relative flex flex-col items-center lg:items-end gap-6">
 
-          <div className="relative">
+          {/* Terminal Window */}
 
-            <div className="w-72 h-72 lg:w-80 lg:h-80 rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl">
+          <motion.div
 
-              <img src={PORTFOLIO_DATA.photo} alt={PORTFOLIO_DATA.name} className="w-full h-full object-cover" />
+            variants={fadeUp}
 
-            </div>
+            className="w-full max-w-lg bg-[#0c0c0c] border border-white/10 rounded-2xl overflow-hidden shadow-2xl shadow-black/50"
 
-            {/* Floating badge */}
+          >
 
-            <div className="absolute -bottom-4 -left-4 bg-[#0A0A0A] border border-white/10 rounded-2xl px-4 py-3 flex items-center gap-3 shadow-xl">
+            {/* Title bar */}
 
-              <Terminal size={16} className="text-neutral-400" />
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
 
-              <div>
+              <div className="flex gap-1.5">
 
-                <p className="font-mono text-[9px] uppercase tracking-widest text-neutral-500">Stack</p>
+                <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
 
-                <p className="text-xs font-medium text-white">{PORTFOLIO_DATA.skills.length}+ Technologies</p>
+                <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
+
+                <span className="w-3 h-3 rounded-full bg-[#28c840]" />
 
               </div>
 
+              <span className="font-mono text-[11px] text-neutral-500 ml-2">education.ts</span>
+
             </div>
 
-          </div>
+            {/* Terminal body */}
+
+            <div className="p-4 font-mono text-sm leading-relaxed min-h-[160px]">
+
+              {typedLines.map((line, i) => (
+
+                <div key={i} className={`mb-1 ${i === typedLines.length - 1 && !isTyping ? 'text-emerald-400' : i === 0 ? 'text-white' : 'text-neutral-400'}`}>
+
+                  {line}
+
+                  {i === typedLines.length - 1 && isTyping && (
+
+                    <span className="inline-block w-2 h-4 bg-white/80 ml-0.5 animate-pulse" />
+
+                  )}
+
+                </div>
+
+              ))}
+
+              {!isTyping && typedLines.length > 0 && (
+
+                <div className="mt-2 text-emerald-400/60 flex items-center gap-2">
+
+                  <GraduationCap size={12} />
+
+                  <span className="text-xs">Pursuing academic excellence</span>
+
+                </div>
+
+              )}
+
+            </div>
+
+          </motion.div>
+
+
 
         </div>
 
@@ -929,21 +1003,49 @@ const ProjectsSection = () => {
 
                     <p className="text-sm text-neutral-400 leading-relaxed line-clamp-2">{project.desc}</p>
 
-                    {project.images.length > 0 && (
+                    <div className="flex items-center gap-4 mt-4">
 
-                    <button
+                      {project.images.length > 0 && (
 
-                      onClick={(e) => { e.stopPropagation(); setModal({ images: project.images, title: project.title }); }}
+                      <button
 
-                      className="mt-4 text-xs font-mono text-neutral-500 hover:text-white transition-colors flex items-center gap-1"
+                        onClick={(e) => { e.stopPropagation(); setModal({ images: project.images, title: project.title }); }}
 
-                    >
+                        className="text-xs font-mono text-neutral-500 hover:text-white transition-colors flex items-center gap-1"
 
-                      Preview screenshot →
+                      >
 
-                    </button>
+                        Preview screenshot →
 
-                    )}
+                      </button>
+
+                      )}
+
+                      {(project as any).pdfLink && (
+
+                      <a
+
+                        href={(project as any).pdfLink}
+
+                        target="_blank"
+
+                        rel="noopener noreferrer"
+
+                        onClick={(e) => e.stopPropagation()}
+
+                        className="text-xs font-mono text-neutral-500 hover:text-white transition-colors flex items-center gap-1"
+
+                      >
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg>
+
+                        View PDF
+
+                      </a>
+
+                      )}
+
+                    </div>
 
                   </div>
 
@@ -999,83 +1101,115 @@ const ExperienceSection = () => (
 
 
 
-    <div className="grid lg:grid-cols-3 gap-4">
+    {/* Timeline layout */}
 
-      {PORTFOLIO_DATA.experience.map((exp, idx) => (
+    <div className="relative">
 
-        <motion.div
+      {/* Timeline line */}
 
-          key={idx}
+      <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-white/20 via-white/[0.06] to-transparent hidden md:block" />
 
-          variants={fadeUp}
 
-          className="h-full"
 
-        >
+      <div className="space-y-6">
 
-          <BorderGlow
+        {PORTFOLIO_DATA.experience.map((exp, idx) => (
 
-            edgeSensitivity={30}
+          <motion.div
 
-            glowColor="40 80 80"
+            key={idx}
 
-            backgroundColor="#0A0A0A"
+            variants={fadeUp}
 
-            borderRadius={24}
-
-            glowRadius={40}
-
-            glowIntensity={1}
-
-            coneSpread={25}
-
-            animated={false}
-
-            colors={['#c084fc', '#f472b6', '#38bdf8']}
-
-            fillOpacity={0.5}
-
-            className="h-full"
+            className="relative"
 
           >
 
-            <div className="bg-[#0A0A0A] rounded-3xl p-5 flex flex-col gap-3 h-full">
+            {/* Timeline dot */}
 
-          <div>
+            <div className="absolute left-6 top-6 -translate-x-1/2 w-3 h-3 rounded-full bg-white border-2 border-[#0A0A0A] z-10 hidden md:block" />
 
-            <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-1">{exp.year}</p>
 
-            <h3 className="text-base font-semibold text-white leading-snug">{exp.role}</h3>
 
-            <p className="text-xs text-neutral-500 mt-1">{exp.company}</p>
+            <div className="md:pl-14">
 
-          </div>
+              <BorderGlow
 
-          <div className="w-full h-px bg-white/[0.06]" />
+                edgeSensitivity={30}
 
-          <ul className="flex flex-col gap-1.5">
+                glowColor="40 80 80"
 
-            {exp.details.map((d, di) => (
+                backgroundColor="#0A0A0A"
 
-              <li key={di} className="flex items-start gap-2 text-xs text-neutral-500 leading-relaxed">
+                borderRadius={24}
 
-                <CircleDot size={10} className="flex-shrink-0 mt-0.5 text-neutral-700" />
+                glowRadius={40}
 
-                <span>{d}</span>
+                glowIntensity={1}
 
-              </li>
+                coneSpread={25}
 
-            ))}
+                animated={false}
 
-          </ul>
+                colors={['#c084fc', '#f472b6', '#38bdf8']}
+
+                fillOpacity={0.5}
+
+                className="h-full"
+
+              >
+
+                <div className="bg-[#0A0A0A] rounded-3xl p-5 flex flex-col gap-3 h-full">
+
+              <div className="flex items-start justify-between gap-3">
+
+                <div>
+
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-1">{exp.year}</p>
+
+                  <h3 className="text-base font-semibold text-white leading-snug">{exp.role}</h3>
+
+                  <p className="text-xs text-neutral-500 mt-1">{exp.company}</p>
+
+                </div>
+
+                <div className="w-9 h-9 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center shrink-0">
+
+                  <Briefcase size={16} className="text-neutral-500" />
+
+                </div>
+
+              </div>
+
+              <div className="w-full h-px bg-white/[0.06]" />
+
+              <ul className="flex flex-col gap-1.5">
+
+                {exp.details.map((d, di) => (
+
+                  <li key={di} className="flex items-start gap-2 text-xs text-neutral-500 leading-relaxed">
+
+                    <CircleDot size={10} className="flex-shrink-0 mt-0.5 text-neutral-700" />
+
+                    <span>{d}</span>
+
+                  </li>
+
+                ))}
+
+              </ul>
+
+                </div>
+
+              </BorderGlow>
 
             </div>
 
-          </BorderGlow>
+          </motion.div>
 
-        </motion.div>
+        ))}
 
-      ))}
+      </div>
 
     </div>
 
@@ -1089,99 +1223,104 @@ const ExperienceSection = () => (
 
 
 
-const CertificationsSection = () => (
+const CertificationsSection = () => {
 
-  <motion.section variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }} className="max-w-6xl mx-auto px-8 py-16">
+  const certColors = [
+    { accent: 'text-blue-400', bg: 'from-blue-500/8', border: 'border-blue-500/15' },
+    { accent: 'text-violet-400', bg: 'from-violet-500/8', border: 'border-violet-500/15' },
+    { accent: 'text-emerald-400', bg: 'from-emerald-500/8', border: 'border-emerald-500/15' },
+    { accent: 'text-amber-400', bg: 'from-amber-500/8', border: 'border-amber-500/15' },
+    { accent: 'text-rose-400', bg: 'from-rose-500/8', border: 'border-rose-500/15' },
+    { accent: 'text-cyan-400', bg: 'from-cyan-500/8', border: 'border-cyan-500/15' },
+  ];
 
-    <motion.div variants={fadeUp} className="mb-8">
+  return (
 
-      <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-2">Credentials</p>
+    <motion.section variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }} className="max-w-6xl mx-auto px-8 py-16">
 
-      <h2 className="text-4xl font-semibold tracking-tight text-white">Certifications</h2>
+      <motion.div variants={fadeUp} className="mb-8">
 
-      <p className="text-neutral-500 mt-2 text-sm">Continuous learning & achievements.</p>
+        <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-2">Credentials</p>
 
-    </motion.div>
+        <h2 className="text-4xl font-semibold tracking-tight text-white">Certifications</h2>
+
+        <p className="text-neutral-500 mt-2 text-sm">Continuous learning & achievements.</p>
+
+      </motion.div>
 
 
 
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Masonry / Pinterest-style grid using CSS columns */}
 
-      {PORTFOLIO_DATA.certifications.map((cert, idx) => (
+      <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
 
-        <motion.div
+        {PORTFOLIO_DATA.certifications.map((cert, idx) => {
 
-          key={idx}
+          const color = certColors[idx % certColors.length];
 
-          variants={fadeUp}
+          const isLong = cert.title.length > 60 || cert.id;
 
-          className="h-full"
+          return (
 
-        >
+            <motion.div
 
-          <BorderGlow
+              key={idx}
 
-            edgeSensitivity={30}
+              variants={fadeUp}
 
-            glowColor="40 80 80"
+              className="break-inside-avoid"
 
-            backgroundColor="#0A0A0A"
+            >
 
-            borderRadius={16}
+              <div className={`group relative bg-[#0A0A0A] ${color.border} border rounded-2xl p-5 flex flex-col gap-3 hover:border-white/20 transition-all duration-300 overflow-hidden`}>
 
-            glowRadius={40}
+                <div className={`absolute inset-0 bg-gradient-to-br ${color.bg} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
 
-            glowIntensity={1}
+                <div className="relative z-10">
 
-            coneSpread={25}
+                  <div className="flex items-start justify-between gap-3 mb-2">
 
-            animated={false}
+                    <div className={`w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center ${color.accent} shrink-0`}>
 
-            colors={['#c084fc', '#f472b6', '#38bdf8']}
+                      <Award size={14} />
 
-            fillOpacity={0.5}
+                    </div>
 
-            className="h-full"
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-neutral-600 shrink-0 mt-1">{cert.date}</span>
 
-          >
+                  </div>
 
-            <div className="bg-[#0A0A0A] rounded-2xl p-5 flex flex-col justify-between gap-3 h-full">
+                  <h3 className={`text-sm font-semibold text-white leading-snug mb-1 ${isLong ? '' : ''}`}>{cert.title}</h3>
 
-          <div className="flex justify-between items-start gap-3">
+                  <p className="text-xs text-neutral-500">{cert.issuer}</p>
 
-            <div>
+                  {cert.id && (
 
-              <h3 className="text-sm font-semibold text-white leading-snug mb-1">{cert.title}</h3>
+                    <div className="mt-3 pt-3 border-t border-white/[0.06]">
 
-              <p className="text-xs text-neutral-500">{cert.issuer}</p>
+                      <p className="font-mono text-[9px] text-neutral-700">Credential ID: {cert.id}</p>
 
-            </div>
+                    </div>
 
-            <ExternalLink size={14} className="text-neutral-700 group-hover:text-white transition-colors flex-shrink-0" />
+                  )}
 
-          </div>
+                </div>
 
-          <div className="flex justify-between items-center pt-3 border-t border-white/[0.06]">
+              </div>
 
-            <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600">{cert.date}</p>
+            </motion.div>
 
-            {cert.id && <p className="font-mono text-[9px] text-neutral-700">ID: {cert.id}</p>}
+          );
 
-          </div>
+        })}
 
-            </div>
+      </div>
 
-          </BorderGlow>
+    </motion.section>
 
-        </motion.div>
+  );
 
-      ))}
-
-    </div>
-
-  </motion.section>
-
-);
+};
 
 
 
@@ -1595,6 +1734,127 @@ const SpeakerCard = () => {
 
 
 
+// ─── Contact Section ──────────────────────────────────────────────────────
+
+
+
+const CONTACT_CHANNELS = [
+  {
+    icon: Mail,
+    title: 'Email',
+    description: 'Reach out for project inquiries, collaborations, or freelance work.',
+    cta: 'Send Email',
+    href: 'mailto:joshuafronda@email.com',
+    color: 'from-blue-500/10 to-transparent',
+    border: 'border-blue-500/20',
+    iconColor: 'text-blue-400',
+  },
+  {
+    icon: MessageCircle,
+    title: 'Live Chat',
+    description: 'Connect with me on LinkedIn for quick conversations and networking.',
+    cta: 'Message on LinkedIn',
+    href: 'https://www.linkedin.com/in/joshuafronda',
+    color: 'from-violet-500/10 to-transparent',
+    border: 'border-violet-500/20',
+    iconColor: 'text-violet-400',
+  },
+  {
+    icon: Github,
+    title: 'GitHub',
+    description: 'Explore my open-source projects, contributions, and code repositories.',
+    cta: 'View Profile',
+    href: 'https://github.com/joshuafronda',
+    color: 'from-emerald-500/10 to-transparent',
+    border: 'border-emerald-500/20',
+    iconColor: 'text-emerald-400',
+  },
+  {
+    icon: BookOpen,
+    title: 'Resume / Docs',
+    description: 'Download my resume or view detailed project documentation.',
+    cta: 'View Resume',
+    href: 'https://drive.google.com/file/d/1M6jPpTxGgahrJnvaR7lFRyS4xmmP18Lt/view?usp=drive_link',
+    color: 'from-amber-500/10 to-transparent',
+    border: 'border-amber-500/20',
+    iconColor: 'text-amber-400',
+  },
+];
+
+const ContactSection = () => (
+
+  <motion.section variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }} className="max-w-6xl mx-auto px-8 py-16">
+
+    <motion.div variants={fadeUp} className="mb-8">
+
+      <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-2">Get in Touch</p>
+
+      <h2 className="text-4xl font-semibold tracking-tight text-white">Contact</h2>
+
+      <p className="text-neutral-500 mt-2 text-sm">Let's build something together.</p>
+
+    </motion.div>
+
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+      {CONTACT_CHANNELS.map((channel, idx) => (
+
+        <motion.a
+
+          key={channel.title}
+
+          href={channel.href}
+
+          target={channel.href.startsWith('mailto') ? undefined : '_blank'}
+
+          rel={channel.href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
+
+          variants={fadeUp}
+
+          className={`group relative bg-[#0A0A0A] border ${channel.border} rounded-2xl p-5 flex flex-col gap-4 hover:border-white/20 transition-all duration-300 overflow-hidden`}
+
+        >
+
+          <div className={`absolute inset-0 bg-gradient-to-br ${channel.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
+
+          <div className="relative z-10 flex flex-col gap-4 h-full">
+
+            <div className={`w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center ${channel.iconColor} group-hover:scale-110 transition-transform duration-300`}>
+
+              <channel.icon size={20} />
+
+            </div>
+
+            <div>
+
+              <h3 className="text-base font-semibold text-white mb-1">{channel.title}</h3>
+
+              <p className="text-xs text-neutral-500 leading-relaxed">{channel.description}</p>
+
+            </div>
+
+            <div className="mt-auto flex items-center gap-1.5 text-xs font-medium text-neutral-500 group-hover:text-white transition-colors">
+
+              <span>{channel.cta}</span>
+
+              <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+
+            </div>
+
+          </div>
+
+        </motion.a>
+
+      ))}
+
+    </div>
+
+  </motion.section>
+
+);
+
+
+
 // ─── Nav ───────────────────────────────────────────────────────────────────
 
 
@@ -1792,9 +2052,21 @@ const WebPortfolioView: React.FC<WebPortfolioViewProps> = ({ onClose }) => {
 
         </div>
 
+        <div className="max-w-6xl mx-auto px-8">
+
+          <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+        </div>
+
         <div id="section-projects">
 
           <ProjectsSection />
+
+        </div>
+
+        <div className="max-w-6xl mx-auto px-8">
+
+          <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
         </div>
 
@@ -1804,15 +2076,39 @@ const WebPortfolioView: React.FC<WebPortfolioViewProps> = ({ onClose }) => {
 
         </div>
 
+        <div className="max-w-6xl mx-auto px-8">
+
+          <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+        </div>
+
         <div id="section-certs">
 
           <CertificationsSection />
 
         </div>
 
+        <div className="max-w-6xl mx-auto px-8">
+
+          <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+        </div>
+
         <div id="section-achievements">
 
           <AchievementSection />
+
+        </div>
+
+        <div className="max-w-6xl mx-auto px-8">
+
+          <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+        </div>
+
+        <div id="section-contact">
+
+          <ContactSection />
 
         </div>
 
