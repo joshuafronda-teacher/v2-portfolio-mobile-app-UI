@@ -1019,7 +1019,7 @@ const HomeScreen = ({ onNavigate, onOpenPhoto }: { onNavigate: (tab: TabId) => v
 
         <a
 
-          href="https://drive.google.com/file/d/1M6jPpTxGgahrJnvaR7lFRyS4xmmP18Lt/view?usp=drive_link"
+          href="https://drive.google.com/file/d/16eisds3mI6LC3jrimgNL1aua56gDVmqp/view?usp=sharing"
 
           target="_blank"
 

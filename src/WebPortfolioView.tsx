@@ -548,7 +548,7 @@ const ImageModal = ({
 
           <X size={18} />
 
-        </button>
+        </button> 
 
         <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
 
@@ -688,7 +688,7 @@ const HomeSection = ({ onNavigate }: { onNavigate: (s: WebSection) => void }) =>
 
             <a
 
-              href="https://drive.google.com/file/d/1M6jPpTxGgahrJnvaR7lFRyS4xmmP18Lt/view?usp=drive_link"
+              href="https://drive.google.com/file/d/16eisds3mI6LC3jrimgNL1aua56gDVmqp/view?usp=sharing"
 
               target="_blank"
 
@@ -1774,7 +1774,7 @@ const CONTACT_CHANNELS = [
     title: 'Resume / Docs',
     description: 'Download my resume or view detailed project documentation.',
     cta: 'View Resume',
-    href: 'https://drive.google.com/file/d/1M6jPpTxGgahrJnvaR7lFRyS4xmmP18Lt/view?usp=drive_link',
+    href: 'https://drive.google.com/file/d/16eisds3mI6LC3jrimgNL1aua56gDVmqp/view?usp=sharing',
     color: 'from-amber-500/10 to-transparent',
     border: 'border-amber-500/20',
     iconColor: 'text-amber-400',
