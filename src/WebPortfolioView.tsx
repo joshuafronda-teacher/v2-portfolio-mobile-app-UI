@@ -22,6 +22,10 @@ import Careconnect from './img/CareConnect.png';
 
 import Easytizen from './img/EASYtizen.png';
 
+import Marboys from './img/Marboys.png';
+
+import Marboys1 from './img/Marboys1.png';
+
 import MuniManage from './img/MuniManage.png';
 
 import SentinelFlow from './img/SentinelFlow.png';
@@ -45,6 +49,8 @@ import V1Portfolio from './img/V1-portfolio.png';
 import { motion, AnimatePresence } from 'motion/react';
 
 import StaggeredMenu from './StaggeredMenu';
+
+import LogoLoop from '../components/LogoLoop';
 
 import {
 
@@ -112,11 +118,11 @@ const PORTFOLIO_DATA = {
 
   photo: profileImage,
 
-  role: 'Developer',
+  role: 'Full Stack Developer',
+
+  status: '',
 
   location: 'Batangas, PH',
-
-  status: 'IT Instructor',
 
   bio: 'A dedicated and results-driven professional with experience in web and mobile development. AI Prompt Engineer — leveraging tools like Claude, Gemini, GLM, SWE, ChatGPT, Kimi, and Cursor to accelerate development workflows and deliver quality solutions.',
 
@@ -134,13 +140,49 @@ const PORTFOLIO_DATA = {
 
     {
 
+      id: 'p7',
+
+      title: 'Marboys Website',
+
+      category: 'Live Client Work',
+
+      desc: 'A live client-commissioned business website for Marboys — a modern, responsive web presence designed to showcase the brand, its offerings, and connect with customers online. Features include a dynamic landing page, product/menu highlights, brand story section, and a contact gateway. Built and deployed on Firebase Hosting with a mobile-first, performance-optimized approach that reflects the brand identity and drives customer engagement.',
+
+      images: [Marboys],
+
+      link: 'https://marboys-2019.web.app/',
+
+      pdfLink: 'https://drive.google.com/file/d/10OU8cXXACVD-fhRuoX6Ig9ilDTTwkFT6/view?usp=sharing',
+
+    },
+
+    {
+
+      id: 'p8',
+
+      title: 'Marboys POS & Management System',
+
+      category: 'Live Client Work',
+
+      desc: 'A full-featured Point-of-Sale and Business Management System purpose-built for Marboys. Covers the complete operational lifecycle — from Order Processing and Inventory Management to Sales Analytics and real-time reporting. Key modules include: transaction processing with receipt generation, stock-level monitoring with low-inventory alerts, daily/weekly/monthly sales dashboards, product & category management, and role-based access control for staff and admin. Engineered to streamline restaurant and retail operations end-to-end.',
+
+      images: [Marboys1],
+
+      link: '',
+
+      pdfLink: 'https://drive.google.com/file/d/1DjFJuMGMWOFGlqmzXZVtJDB9OSwXwCy9/view?usp=sharing',
+
+    },
+
+    {
+
       id: 'p5',
 
       title: 'Project Go',
 
-      category: 'Web Development',
+      category: 'Live Client Work',
 
-      desc: 'Role-Based Workflows — Rigid permissions mapped to Owners, Managers, Finance, and Engineers. View only what matters to you. Real-time Messaging — Built-in direct messages and channels. Keep conversations attached to the project context. Budget Tracking — Live financial dashboards. Monitor allocation vs. expenditure securely without third-party tools. Smart Contracts — Generate professional Project Charters dynamically from your form inputs. Signed, sealed, delivered. Milestone Tracking — Break projects down to deliverables. Require strict sign-offs to pass progression gates.',
+      desc: 'Role-Based Workflows — Rigid permissions mapped to Owners, Managers, Finance, and Engineers. View only what matters to you. Real-time collaboration and messaging keep conversations attached to the project context.',
 
       images: [ProjectGo1, ProjectGo2],
 
@@ -156,7 +198,7 @@ const PORTFOLIO_DATA = {
 
       title: 'EASYtizen',
 
-      category: 'Web & Mobile App',
+      category: 'Live Client Work',
 
       desc: 'An Integrated Web and Mobile Application for Document Requests and Data Analytics. Experience the future of barangay management with our innovative digital platform.',
 
@@ -236,21 +278,21 @@ const PORTFOLIO_DATA = {
 
     {
 
-      role: 'Freelance Developer',
+      role: 'Full Stack Developer',
 
-      company: 'Self-Employed',
+      company: 'Assistly Pro',
 
       year: '2025 – PRESENT',
 
       details: [
 
-        'Developing custom web and mobile applications for clients',
+        'Working full-time as a Full Stack Developer for US-based Assistly Pro (Work From Home)',
 
-        'Providing technical consulting and solutions',
+        'Developing and maintaining custom web and mobile applications using modern full stack technologies',
 
-        'Managing full project lifecycle from design to deployment',
+        'Collaborating on remote, cross-functional teams to deliver scalable software solutions',
 
-        'Working with modern technologies and best practices',
+        'Managing and optimizing database designs, APIs, and front-end interfaces',
 
       ],
 
@@ -262,7 +304,7 @@ const PORTFOLIO_DATA = {
 
       company: 'Batangas State University TNEU – Alangilan Campus',
 
-      year: '2025 – PRESENT',
+      year: '2026 – PRESENT',
 
       details: [
 
@@ -305,12 +347,11 @@ const PORTFOLIO_DATA = {
   skills: [
 
     'HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Tailwind CSS',
-
-    'Flutter', 'Vite', 'Python', 'Django', 'PHP', 'WordPress',
+    , 'Vite', 'Python', 'Django', 'PHP', 'WordPress',
 
     'Nginx', 'MySQL', 'PostgreSQL', 'MongoDB', 'Git', 'Ubuntu', 'Firebase',
 
-    'Windsurf', 'Antigravity', 'Cursor', 'Visual Studio',
+    'Windsurf', 'Antigravity', 'Cursor', 'Visual Studio', 'Next.js', 'Convex',
 
   ],
 
@@ -424,7 +465,7 @@ const fadeUp = {
 
   show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 110, damping: 20 } },
 
-};
+} as const;
 
 
 
@@ -548,7 +589,7 @@ const ImageModal = ({
 
           <X size={18} />
 
-        </button> 
+        </button>
 
         <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
 
@@ -624,12 +665,12 @@ const HomeSection = ({ onNavigate }: { onNavigate: (s: WebSection) => void }) =>
       {/* Hero */}
 
       <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-10 items-center">
-    
+
         <div className="relative z-10">
 
           <div className="flex items-center gap-2 mb-5">
 
-  
+
             <span className="font-mono text-[11px] uppercase tracking-widest text-emerald-500/80">Open to Opportunities</span>
 
           </div>
@@ -640,7 +681,7 @@ const HomeSection = ({ onNavigate }: { onNavigate: (s: WebSection) => void }) =>
 
           </h1>
 
-          <p className="text-xl text-neutral-400 font-medium mb-2">{PORTFOLIO_DATA.role} · {PORTFOLIO_DATA.status}</p>
+          <p className="text-xl text-neutral-400 font-medium mb-2">{PORTFOLIO_DATA.role}{PORTFOLIO_DATA.status ? ` · ${PORTFOLIO_DATA.status}` : ''}</p>
 
           <div className="flex items-center gap-2 text-neutral-500 mb-5">
 
@@ -658,15 +699,15 @@ const HomeSection = ({ onNavigate }: { onNavigate: (s: WebSection) => void }) =>
 
           <div className="space-y-2 mb-6">
 
-              {PORTFOLIO_DATA.education.map((edu) => (
+            {PORTFOLIO_DATA.education.map((edu) => (
 
-                <div key={edu.period} className="flex items-start gap-2">
+              <div key={edu.period} className="flex items-start gap-2">
 
 
 
-              
 
-                </div>
+
+              </div>
 
             ))}
 
@@ -872,8 +913,6 @@ const ProjectsSection = () => {
 
         <h2 className="text-4xl font-semibold tracking-tight text-white">Featured Projects</h2>
 
-        <p className="text-neutral-500 mt-2 text-sm">Case studies & live deployments.</p>
-
       </motion.div>
 
 
@@ -945,109 +984,109 @@ const ProjectsSection = () => {
 
                     >
 
-                  {/* BG Image */}
+                      {/* BG Image */}
 
-                  {project.images[0] ? (
+                      {project.images[0] ? (
 
-                  <div className="absolute inset-0">
+                        <div className="absolute inset-0">
 
-                    <img
+                          <img
 
-                      src={project.images[0]}
+                            src={project.images[0]}
 
-                      alt={project.title}
+                            alt={project.title}
 
-                      className="w-full h-full object-cover opacity-25 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700 ease-out"
+                            className="w-full h-full object-cover opacity-25 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700 ease-out"
 
-                    />
+                          />
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/70 to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/70 to-transparent" />
 
-                  </div>
+                        </div>
 
-                  ) : (
+                      ) : (
 
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent" />
-
-                  )}
-
-
-
-                  {/* Top bar */}
-
-                  <div className="absolute top-6 left-6 right-6 flex justify-between items-start z-10">
-
-                    <span className="font-mono text-[10px] text-neutral-500 bg-black/50 backdrop-blur-md border border-white/10 rounded-full px-3 py-1">
-
-                      0{idx + 1}
-
-                    </span>
-
-                    <div className="w-9 h-9 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:bg-white transition-colors">
-
-                      <ArrowUpRight size={16} className="text-white group-hover:text-black transition-colors" />
-
-                    </div>
-
-                  </div>
-
-
-
-                  {/* Content */}
-
-                  <div className="relative z-10 p-6">
-
-                    <p className="font-mono text-[10px] uppercase tracking-widest text-white/50 mb-2">{project.category}</p>
-
-                    <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
-
-                    <p className="text-sm text-neutral-400 leading-relaxed line-clamp-2">{project.desc}</p>
-
-                    <div className="flex items-center gap-4 mt-4">
-
-                      {project.images.length > 0 && (
-
-                      <button
-
-                        onClick={(e) => { e.stopPropagation(); setModal({ images: project.images, title: project.title }); }}
-
-                        className="text-xs font-mono text-neutral-500 hover:text-white transition-colors flex items-center gap-1"
-
-                      >
-
-                        Preview screenshot →
-
-                      </button>
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent" />
 
                       )}
 
-                      {(project as any).pdfLink && (
 
-                      <a
 
-                        href={(project as any).pdfLink}
+                      {/* Top bar */}
 
-                        target="_blank"
+                      <div className="absolute top-6 left-6 right-6 flex justify-between items-start z-10">
 
-                        rel="noopener noreferrer"
+                        <span className="font-mono text-[10px] text-neutral-500 bg-black/50 backdrop-blur-md border border-white/10 rounded-full px-3 py-1">
 
-                        onClick={(e) => e.stopPropagation()}
+                          0{idx + 1}
 
-                        className="text-xs font-mono text-neutral-500 hover:text-white transition-colors flex items-center gap-1"
+                        </span>
 
-                      >
+                        <div className="w-9 h-9 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:bg-white transition-colors">
 
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg>
+                          <ArrowUpRight size={16} className="text-white group-hover:text-black transition-colors" />
 
-                        View PDF
+                        </div>
 
-                      </a>
+                      </div>
 
-                      )}
 
-                    </div>
 
-                  </div>
+                      {/* Content */}
+
+                      <div className="relative z-10 p-6">
+
+                        <p className="font-mono text-[10px] uppercase tracking-widest text-white/50 mb-2">{project.category}</p>
+
+                        <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
+
+                        <p className="text-sm text-neutral-400 leading-relaxed line-clamp-2">{project.desc}</p>
+
+                        <div className="flex items-center gap-4 mt-4">
+
+                          {project.images.length > 0 && (
+
+                            <button
+
+                              onClick={(e) => { e.stopPropagation(); setModal({ images: project.images, title: project.title }); }}
+
+                              className="text-xs font-mono text-neutral-500 hover:text-white transition-colors flex items-center gap-1"
+
+                            >
+
+                              Preview screenshot →
+
+                            </button>
+
+                          )}
+
+                          {(project as any).pdfLink && (
+
+                            <a
+
+                              href={(project as any).pdfLink}
+
+                              target="_blank"
+
+                              rel="noopener noreferrer"
+
+                              onClick={(e) => e.stopPropagation()}
+
+                              className="text-xs font-mono text-neutral-500 hover:text-white transition-colors flex items-center gap-1"
+
+                            >
+
+                              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" /><polyline points="14 2 14 8 20 8" /><path d="M12 18v-6" /><path d="M9 15l3 3 3-3" /></svg>
+
+                              View PDF
+
+                            </a>
+
+                          )}
+
+                        </div>
+
+                      </div>
 
                     </div>
 
@@ -1099,117 +1138,59 @@ const ExperienceSection = () => (
 
     </motion.div>
 
+    <div className="space-y-5">
 
+      {PORTFOLIO_DATA.experience.map((exp, idx) => (
 
-    {/* Timeline layout */}
+        <motion.article
 
-    <div className="relative">
+          key={idx}
 
-      {/* Timeline line */}
+          variants={fadeUp}
 
-      <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-white/20 via-white/[0.06] to-transparent hidden md:block" />
+          className="grid md:grid-cols-12 gap-4 rounded-3xl border border-white/10 bg-[#101010] p-5 md:p-6"
 
+        >
 
+          <div className="md:col-span-3 lg:col-span-2">
 
-      <div className="space-y-6">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-400">{exp.year}</p>
 
-        {PORTFOLIO_DATA.experience.map((exp, idx) => (
+            <div className="mt-3 w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-neutral-300">
 
-          <motion.div
-
-            key={idx}
-
-            variants={fadeUp}
-
-            className="relative"
-
-          >
-
-            {/* Timeline dot */}
-
-            <div className="absolute left-6 top-6 -translate-x-1/2 w-3 h-3 rounded-full bg-white border-2 border-[#0A0A0A] z-10 hidden md:block" />
-
-
-
-            <div className="md:pl-14">
-
-              <BorderGlow
-
-                edgeSensitivity={30}
-
-                glowColor="40 80 80"
-
-                backgroundColor="#0A0A0A"
-
-                borderRadius={24}
-
-                glowRadius={40}
-
-                glowIntensity={1}
-
-                coneSpread={25}
-
-                animated={false}
-
-                colors={['#c084fc', '#f472b6', '#38bdf8']}
-
-                fillOpacity={0.5}
-
-                className="h-full"
-
-              >
-
-                <div className="bg-[#0A0A0A] rounded-3xl p-5 flex flex-col gap-3 h-full">
-
-              <div className="flex items-start justify-between gap-3">
-
-                <div>
-
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-1">{exp.year}</p>
-
-                  <h3 className="text-base font-semibold text-white leading-snug">{exp.role}</h3>
-
-                  <p className="text-xs text-neutral-500 mt-1">{exp.company}</p>
-
-                </div>
-
-                <div className="w-9 h-9 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center shrink-0">
-
-                  <Briefcase size={16} className="text-neutral-500" />
-
-                </div>
-
-              </div>
-
-              <div className="w-full h-px bg-white/[0.06]" />
-
-              <ul className="flex flex-col gap-1.5">
-
-                {exp.details.map((d, di) => (
-
-                  <li key={di} className="flex items-start gap-2 text-xs text-neutral-500 leading-relaxed">
-
-                    <CircleDot size={10} className="flex-shrink-0 mt-0.5 text-neutral-700" />
-
-                    <span>{d}</span>
-
-                  </li>
-
-                ))}
-
-              </ul>
-
-                </div>
-
-              </BorderGlow>
+              <Briefcase size={16} />
 
             </div>
 
-          </motion.div>
+          </div>
 
-        ))}
+          <div className="md:col-span-9 lg:col-span-10 border-l border-white/10 pl-4 md:pl-6">
 
-      </div>
+            <h3 className="text-xl font-semibold text-white leading-snug">{exp.role}</h3>
+
+            <p className="text-sm text-neutral-400 mt-1 mb-4">{exp.company}</p>
+
+            <ul className="grid gap-2">
+
+              {exp.details.map((d, di) => (
+
+                <li key={di} className="flex items-start gap-2.5 text-sm text-neutral-300 leading-relaxed">
+
+                  <CircleDot size={12} className="flex-shrink-0 mt-1 text-neutral-500" />
+
+                  <span>{d}</span>
+
+                </li>
+
+              ))}
+
+            </ul>
+
+          </div>
+
+        </motion.article>
+
+      ))}
 
     </div>
 
@@ -1225,14 +1206,37 @@ const ExperienceSection = () => (
 
 const CertificationsSection = () => {
 
-  const certColors = [
-    { accent: 'text-blue-400', bg: 'from-blue-500/8', border: 'border-blue-500/15' },
-    { accent: 'text-violet-400', bg: 'from-violet-500/8', border: 'border-violet-500/15' },
-    { accent: 'text-emerald-400', bg: 'from-emerald-500/8', border: 'border-emerald-500/15' },
-    { accent: 'text-amber-400', bg: 'from-amber-500/8', border: 'border-amber-500/15' },
-    { accent: 'text-rose-400', bg: 'from-rose-500/8', border: 'border-rose-500/15' },
-    { accent: 'text-cyan-400', bg: 'from-cyan-500/8', border: 'border-cyan-500/15' },
-  ];
+  const certLoopItems = PORTFOLIO_DATA.certifications.map((cert) => ({
+
+    title: cert.title,
+
+    node: (
+
+      <article className="w-[min(86vw,1100px)] px-2 py-2 text-white">
+
+        <div className="flex items-center gap-4">
+
+          <Award size={16} className="text-white/70 shrink-0" />
+
+          <h3 className="text-xl md:text-2xl font-extrabold tracking-tight leading-none whitespace-nowrap">
+
+            {cert.title}
+
+          </h3>
+
+          <p className="text-sm md:text-base font-bold text-white/75 whitespace-nowrap">{cert.issuer}</p>
+
+          <p className="font-mono text-[11px] uppercase tracking-widest text-white/55 whitespace-nowrap">{cert.date}</p>
+
+          {cert.id && <p className="font-mono text-[10px] text-white/50 whitespace-nowrap">{cert.id}</p>}
+
+        </div>
+
+      </article>
+
+    ),
+
+  }));
 
   return (
 
@@ -1248,73 +1252,27 @@ const CertificationsSection = () => {
 
       </motion.div>
 
+      <motion.div variants={fadeUp} className="overflow-hidden relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw]">
 
+        <LogoLoop
 
-      {/* Masonry / Pinterest-style grid using CSS columns */}
+          logos={certLoopItems}
 
-      <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
+          speed={60}
 
-        {PORTFOLIO_DATA.certifications.map((cert, idx) => {
+          direction="left"
 
-          const color = certColors[idx % certColors.length];
+          logoHeight={12}
 
-          const isLong = cert.title.length > 60 || cert.id;
+          gap={28}
 
-          return (
+          pauseOnHover={false}
 
-            <motion.div
+          ariaLabel="Certifications carousel"
 
-              key={idx}
+        />
 
-              variants={fadeUp}
-
-              className="break-inside-avoid"
-
-            >
-
-              <div className={`group relative bg-[#0A0A0A] ${color.border} border rounded-2xl p-5 flex flex-col gap-3 hover:border-white/20 transition-all duration-300 overflow-hidden`}>
-
-                <div className={`absolute inset-0 bg-gradient-to-br ${color.bg} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
-
-                <div className="relative z-10">
-
-                  <div className="flex items-start justify-between gap-3 mb-2">
-
-                    <div className={`w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center ${color.accent} shrink-0`}>
-
-                      <Award size={14} />
-
-                    </div>
-
-                    <span className="font-mono text-[9px] uppercase tracking-widest text-neutral-600 shrink-0 mt-1">{cert.date}</span>
-
-                  </div>
-
-                  <h3 className={`text-sm font-semibold text-white leading-snug mb-1 ${isLong ? '' : ''}`}>{cert.title}</h3>
-
-                  <p className="text-xs text-neutral-500">{cert.issuer}</p>
-
-                  {cert.id && (
-
-                    <div className="mt-3 pt-3 border-t border-white/[0.06]">
-
-                      <p className="font-mono text-[9px] text-neutral-700">Credential ID: {cert.id}</p>
-
-                    </div>
-
-                  )}
-
-                </div>
-
-              </div>
-
-            </motion.div>
-
-          );
-
-        })}
-
-      </div>
+      </motion.div>
 
     </motion.section>
 
@@ -1386,161 +1344,161 @@ const AchievementSection = () => {
 
           <div className="relative rounded-3xl overflow-hidden bg-[#0A0A0A] shadow-2xl">
 
-        {/* Subtle amber glow bg */}
+            {/* Subtle amber glow bg */}
 
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-transparent pointer-events-none" />
-
-
-
-        <div className="grid lg:grid-cols-2 gap-0">
-
-          {/* Left – image panel */}
-
-          <div className="relative h-72 lg:h-auto min-h-[320px] overflow-hidden">
-
-            <AnimatePresence mode="wait">
-
-              <motion.img
-
-                key={activeImg}
-
-                src={images[activeImg]}
-
-                alt="Competition photograph"
-
-                className="absolute inset-0 w-full h-full object-cover"
-
-                initial={{ opacity: 0, scale: 1.05 }}
-
-                animate={{ opacity: 1, scale: 1 }}
-
-                exit={{ opacity: 0, scale: 0.96 }}
-
-                transition={{ duration: 0.4 }}
-
-              />
-
-            </AnimatePresence>
-
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#0A0A0A] hidden lg:block" />
-
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent lg:hidden" />
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-transparent pointer-events-none" />
 
 
 
-            {/* Thumbnail row */}
+            <div className="grid lg:grid-cols-2 gap-0">
 
-            <div className="absolute bottom-4 left-4 flex gap-2">
+              {/* Left – image panel */}
 
-              {images.map((img, i) => (
+              <div className="relative h-72 lg:h-auto min-h-[320px] overflow-hidden">
 
-                <button
+                <AnimatePresence mode="wait">
 
-                  key={i}
+                  <motion.img
 
-                  onClick={() => setActiveImg(i)}
+                    key={activeImg}
 
-                  className={`w-14 h-10 rounded-xl overflow-hidden border-2 transition-all ${i === activeImg ? 'border-amber-400 scale-110' : 'border-white/10 opacity-60 hover:opacity-100'
+                    src={images[activeImg]}
 
-                    }`}
+                    alt="Competition photograph"
 
-                >
+                    className="absolute inset-0 w-full h-full object-cover"
 
-                  <img src={img} alt="" className="w-full h-full object-cover" />
+                    initial={{ opacity: 0, scale: 1.05 }}
 
-                </button>
+                    animate={{ opacity: 1, scale: 1 }}
 
-              ))}
+                    exit={{ opacity: 0, scale: 0.96 }}
 
-            </div>
+                    transition={{ duration: 0.4 }}
 
-          </div>
+                  />
 
+                </AnimatePresence>
 
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#0A0A0A] hidden lg:block" />
 
-          {/* Right – details panel */}
-
-          <div className="p-6 lg:p-8 flex flex-col justify-center gap-4">
-
-            {/* Prize badge */}
-
-            <div className="inline-flex items-center gap-2 bg-amber-500/15 border border-amber-500/30 text-amber-400 rounded-full px-4 py-2 w-fit">
-
-              <Trophy size={16} />
-
-              <span className="text-sm font-bold tracking-wide">{comp.prize}</span>
-
-            </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent lg:hidden" />
 
 
 
-            <div>
+                {/* Thumbnail row */}
 
-              <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500 mb-2">{comp.track}</p>
+                <div className="absolute bottom-4 left-4 flex gap-2">
 
-              <h3 className="text-2xl font-semibold text-white leading-snug mb-1">{comp.title}</h3>
+                  {images.map((img, i) => (
 
-            </div>
+                    <button
 
+                      key={i}
 
+                      onClick={() => setActiveImg(i)}
 
-            <p className="text-neutral-400 text-sm leading-relaxed">{comp.description}</p>
+                      className={`w-14 h-10 rounded-xl overflow-hidden border-2 transition-all ${i === activeImg ? 'border-amber-400 scale-110' : 'border-white/10 opacity-60 hover:opacity-100'
 
+                        }`}
 
+                    >
 
-            {/* Stats row */}
+                      <img src={img} alt="" className="w-full h-full object-cover" />
 
-            <div className="grid grid-cols-3 gap-3">
+                    </button>
 
-              <div className="bg-white/[0.04] border border-white/[0.07] rounded-2xl p-3 text-center">
+                  ))}
 
-                <Medal size={18} className="text-amber-400 mx-auto mb-1.5" />
-
-                <p className="text-white font-bold text-lg">2nd</p>
-
-                <p className="text-neutral-600 text-[10px] font-mono uppercase tracking-widest mt-0.5">Place</p>
+                </div>
 
               </div>
 
-              <div className="bg-white/[0.04] border border-white/[0.07] rounded-2xl p-3 text-center">
 
-                <Star size={18} className="text-amber-400 mx-auto mb-1.5" />
 
-                <p className="text-white font-bold text-lg">2,900+</p>
+              {/* Right – details panel */}
 
-                <p className="text-neutral-600 text-[10px] font-mono uppercase tracking-widest mt-0.5">Students</p>
+              <div className="p-6 lg:p-8 flex flex-col justify-center gap-4">
 
-              </div>
+                {/* Prize badge */}
 
-              <div className="bg-white/[0.04] border border-white/[0.07] rounded-2xl p-3 text-center">
+                <div className="inline-flex items-center gap-2 bg-amber-500/15 border border-amber-500/30 text-amber-400 rounded-full px-4 py-2 w-fit">
 
-                <Trophy size={18} className="text-amber-400 mx-auto mb-1.5" />
+                  <Trophy size={16} />
 
-                <p className="text-white font-bold text-lg">PH</p>
+                  <span className="text-sm font-bold tracking-wide">{comp.prize}</span>
 
-                <p className="text-neutral-600 text-[10px] font-mono uppercase tracking-widest mt-0.5">National</p>
+                </div>
+
+
+
+                <div>
+
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500 mb-2">{comp.track}</p>
+
+                  <h3 className="text-2xl font-semibold text-white leading-snug mb-1">{comp.title}</h3>
+
+                </div>
+
+
+
+                <p className="text-neutral-400 text-sm leading-relaxed">{comp.description}</p>
+
+
+
+                {/* Stats row */}
+
+                <div className="grid grid-cols-3 gap-3">
+
+                  <div className="bg-white/[0.04] border border-white/[0.07] rounded-2xl p-3 text-center">
+
+                    <Medal size={18} className="text-amber-400 mx-auto mb-1.5" />
+
+                    <p className="text-white font-bold text-lg">2nd</p>
+
+                    <p className="text-neutral-600 text-[10px] font-mono uppercase tracking-widest mt-0.5">Place</p>
+
+                  </div>
+
+                  <div className="bg-white/[0.04] border border-white/[0.07] rounded-2xl p-3 text-center">
+
+                    <Star size={18} className="text-amber-400 mx-auto mb-1.5" />
+
+                    <p className="text-white font-bold text-lg">2,900+</p>
+
+                    <p className="text-neutral-600 text-[10px] font-mono uppercase tracking-widest mt-0.5">Students</p>
+
+                  </div>
+
+                  <div className="bg-white/[0.04] border border-white/[0.07] rounded-2xl p-3 text-center">
+
+                    <Trophy size={18} className="text-amber-400 mx-auto mb-1.5" />
+
+                    <p className="text-white font-bold text-lg">PH</p>
+
+                    <p className="text-neutral-600 text-[10px] font-mono uppercase tracking-widest mt-0.5">National</p>
+
+                  </div>
+
+                </div>
+
+
+
+                {/* Team */}
+
+                <div className="flex items-center gap-3 pt-3 border-t border-white/[0.06]">
+
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-600">Team</span>
+
+                  <span className="text-sm font-semibold text-white bg-white/5 border border-white/10 rounded-full px-3 py-1">{comp.team}</span>
+
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-600">{comp.org}</span>
+
+                </div>
 
               </div>
 
             </div>
-
-
-
-            {/* Team */}
-
-            <div className="flex items-center gap-3 pt-3 border-t border-white/[0.06]">
-
-              <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-600">Team</span>
-
-              <span className="text-sm font-semibold text-white bg-white/5 border border-white/10 rounded-full px-3 py-1">{comp.team}</span>
-
-              <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-600">{comp.org}</span>
-
-            </div>
-
-          </div>
-
-        </div>
 
           </div>
 
@@ -1602,129 +1560,129 @@ const SpeakerCard = () => {
 
     >
 
-    <motion.div
+      <motion.div
 
-      variants={fadeUp}
+        variants={fadeUp}
 
-      className="relative rounded-3xl overflow-hidden bg-[#0A0A0A]"
+        className="relative rounded-3xl overflow-hidden bg-[#0A0A0A]"
 
-    >
+      >
 
-      {/* Purple glow bg */}
+        {/* Purple glow bg */}
 
-      <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-transparent to-transparent pointer-events-none" />
 
 
 
-      <div className="grid lg:grid-cols-2 gap-0">
+        <div className="grid lg:grid-cols-2 gap-0">
 
-        {/* Left – image gallery */}
+          {/* Left – image gallery */}
 
-        <div className="relative h-56 lg:h-auto min-h-[260px] overflow-hidden">
+          <div className="relative h-56 lg:h-auto min-h-[260px] overflow-hidden">
 
-          <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait">
 
-            <motion.img
+              <motion.img
 
-              key={activeImg}
+                key={activeImg}
 
-              src={images[activeImg]}
+                src={images[activeImg]}
 
-              alt="Speaker event photograph"
+                alt="Speaker event photograph"
 
-              className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover"
 
-              initial={{ opacity: 0, scale: 1.05 }}
+                initial={{ opacity: 0, scale: 1.05 }}
 
-              animate={{ opacity: 1, scale: 1 }}
+                animate={{ opacity: 1, scale: 1 }}
 
-              exit={{ opacity: 0, scale: 0.96 }}
+                exit={{ opacity: 0, scale: 0.96 }}
 
-              transition={{ duration: 0.4 }}
+                transition={{ duration: 0.4 }}
 
-            />
+              />
 
-          </AnimatePresence>
+            </AnimatePresence>
 
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#0A0A0A] hidden lg:block" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#0A0A0A] hidden lg:block" />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent lg:hidden" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent lg:hidden" />
 
-          {/* Thumbnails */}
+            {/* Thumbnails */}
 
-          <div className="absolute bottom-4 left-4 flex gap-2">
+            <div className="absolute bottom-4 left-4 flex gap-2">
 
-            {images.map((img, i) => (
+              {images.map((img, i) => (
 
-              <button
+                <button
 
-                key={i}
+                  key={i}
 
-                onClick={() => setActiveImg(i)}
+                  onClick={() => setActiveImg(i)}
 
-                className={`w-14 h-10 rounded-xl overflow-hidden border-2 transition-all ${i === activeImg ? 'border-violet-400 scale-110' : 'border-white/10 opacity-60 hover:opacity-100'
+                  className={`w-14 h-10 rounded-xl overflow-hidden border-2 transition-all ${i === activeImg ? 'border-violet-400 scale-110' : 'border-white/10 opacity-60 hover:opacity-100'
 
-                  }`}
+                    }`}
 
-              >
+                >
 
-                <img src={img} alt="" className="w-full h-full object-cover" />
+                  <img src={img} alt="" className="w-full h-full object-cover" />
 
-              </button>
+                </button>
 
-            ))}
+              ))}
+
+            </div>
+
+          </div>
+
+
+
+          {/* Right – details */}
+
+          <div className="p-6 lg:p-8 flex flex-col justify-center gap-4">
+
+            {/* Role badge */}
+
+            <div className="inline-flex items-center gap-2 bg-violet-500/15 border border-violet-500/30 text-violet-300 rounded-full px-4 py-2 w-fit">
+
+              <Mic size={15} />
+
+              <span className="text-sm font-bold tracking-wide">{speak.role}</span>
+
+            </div>
+
+
+
+            <div>
+
+              <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500 mb-2">Tech Talk</p>
+
+              <h3 className="text-2xl font-semibold text-white leading-snug">{speak.title}</h3>
+
+            </div>
+
+
+
+            <p className="text-neutral-400 text-sm leading-relaxed">{speak.description}</p>
+
+
+
+            {/* Host */}
+
+            <div className="flex items-start gap-3 pt-3 border-t border-white/[0.06]">
+
+              <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mt-0.5">Hosted by</span>
+
+              <span className="text-xs text-white leading-snug">{speak.host}</span>
+
+            </div>
 
           </div>
 
         </div>
 
-
-
-        {/* Right – details */}
-
-        <div className="p-6 lg:p-8 flex flex-col justify-center gap-4">
-
-          {/* Role badge */}
-
-          <div className="inline-flex items-center gap-2 bg-violet-500/15 border border-violet-500/30 text-violet-300 rounded-full px-4 py-2 w-fit">
-
-            <Mic size={15} />
-
-            <span className="text-sm font-bold tracking-wide">{speak.role}</span>
-
-          </div>
-
-
-
-          <div>
-
-            <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500 mb-2">Tech Talk</p>
-
-            <h3 className="text-2xl font-semibold text-white leading-snug">{speak.title}</h3>
-
-          </div>
-
-
-
-          <p className="text-neutral-400 text-sm leading-relaxed">{speak.description}</p>
-
-
-
-          {/* Host */}
-
-          <div className="flex items-start gap-3 pt-3 border-t border-white/[0.06]">
-
-            <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mt-0.5">Hosted by</span>
-
-            <span className="text-xs text-white leading-snug">{speak.host}</span>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </motion.div>
+      </motion.div>
 
     </BorderGlow>
 

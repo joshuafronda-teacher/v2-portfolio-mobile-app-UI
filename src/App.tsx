@@ -15,6 +15,10 @@ import Careconnect from './img/CareConnect.png';
 
 import Easytizen from './img/EASYtizen.png';
 
+import Marboys from './img/Marboys.png';
+
+import Marboys1 from './img/Marboys1.png';
+
 import MuniManage from './img/MuniManage.png';
 
 import SentinelFlow from './img/SentinelFlow.png';
@@ -41,7 +45,7 @@ import LogoLoop from '../components/LogoLoop';
 
 import Lanyard from './Lanyard';
 
-import WebPortfolioView from './WebPortfolioView';  
+import WebPortfolioView from './WebPortfolioView';
 
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -109,8 +113,6 @@ const SKILL_LOGOS = [
 
   { node: <span className="text-teal-400 font-semibold">Tailwind</span>, title: "Tailwind CSS" },
 
-  { node: <span className="text-blue-600 font-semibold">Flutter</span>, title: "Flutter" },
-
   { node: <span className="text-purple-400 font-semibold">Vite</span>, title: "Vite" },
 
   { node: <span className="text-green-500 font-semibold">Python</span>, title: "Python" },
@@ -143,6 +145,10 @@ const SKILL_LOGOS = [
 
   { node: <span className="text-purple-500 font-semibold">Visual Studio</span>, title: "Visual Studio" },
 
+  { node: <span className="text-white font-semibold">Next.js</span>, title: "Next.js" },
+
+  { node: <span className="text-amber-400 font-semibold">Convex</span>, title: "Convex" },
+
 ];
 
 
@@ -161,11 +167,11 @@ const PORTFOLIO_DATA = {
 
   photo: profileImage,
 
-  role: "Developer",
+  role: "Full Stack Developer",
 
   location: "Batangas, PH",
 
-  status: "IT Instructor",
+  status: "",
 
   bio: "A dedicated and results-driven professional with experience in web and mobile development. AI Prompt Engineer — leveraging tools like Claude, Gemini, GLM, SWE, ChatGPT, Kimi, and Cursor to accelerate development workflows and deliver quality solutions.",
 
@@ -183,13 +189,49 @@ const PORTFOLIO_DATA = {
 
     {
 
+      id: 'p7',
+
+      title: 'Marboys Website',
+
+      category: 'Live Client Work',
+
+      desc: 'A live client-commissioned business website for Marboys — a modern, responsive web presence designed to showcase the brand, its offerings, and connect with customers online. Features include a dynamic landing page, product/menu highlights, brand story section, and a contact gateway. Built and deployed on Firebase Hosting with a mobile-first, performance-optimized approach that reflects the brand identity and drives customer engagement.',
+
+      images: [Marboys],
+
+      link: 'https://marboys-2019.web.app/',
+
+      pdfLink: 'https://drive.google.com/file/d/10OU8cXXACVD-fhRuoX6Ig9ilDTTwkFT6/view?usp=sharing',
+
+    },
+
+    {
+
+      id: 'p8',
+
+      title: 'Marboys POS & Management System',
+
+      category: 'Live Client Work',
+
+      desc: 'A full-featured Point-of-Sale and Business Management System purpose-built for Marboys. Covers the complete operational lifecycle — from Order Processing and Inventory Management to Sales Analytics and real-time reporting. Key modules include: transaction processing with receipt generation, stock-level monitoring with low-inventory alerts, daily/weekly/monthly sales dashboards, product & category management, and role-based access control for staff and admin. Engineered to streamline restaurant and retail operations end-to-end.',
+
+      images: [Marboys1],
+
+      link: '',
+
+      pdfLink: 'https://drive.google.com/file/d/1DjFJuMGMWOFGlqmzXZVtJDB9OSwXwCy9/view?usp=sharing',
+
+    },
+
+    {
+
       id: 'p5',
 
       title: 'Project Go',
 
-      category: 'Web Development',
+      category: 'Live Client Work',
 
-      desc: 'Role-Based Workflows — Rigid permissions mapped to Owners, Managers, Finance, and Engineers. View only what matters to you. Real-time Messaging — Built-in direct messages and channels. Keep conversations attached to the project context. Budget Tracking — Live financial dashboards. Monitor allocation vs. expenditure securely without third-party tools. Smart Contracts — Generate professional Project Charters dynamically from your form inputs. Signed, sealed, delivered. Milestone Tracking — Break projects down to deliverables. Require strict sign-offs to pass progression gates.',
+      desc: 'Role-Based Workflows — Rigid permissions mapped to Owners, Managers, Finance, and Engineers. View only what matters to you. Real-time collaboration and messaging keep conversations attached to the project context.',
 
       images: [ProjectGo1, ProjectGo2],
 
@@ -203,7 +245,7 @@ const PORTFOLIO_DATA = {
 
       title: 'EASYtizen',
 
-      category: 'Web & Mobile App',
+      category: 'Live Client Work',
 
       desc: 'An Integrated Web and Mobile Application for Document Requests and Data Analytics. Experience the future of barangay management with our innovative digital platform.',
 
@@ -283,21 +325,21 @@ const PORTFOLIO_DATA = {
 
     {
 
-      role: 'Freelance Developer',
+      role: 'Full Stack Developer',
 
-      company: 'Self-Employed',
+      company: 'Assistly Pro',
 
       year: '2025 - PRESENT',
 
       details: [
 
-        'Developing custom web and mobile applications for clients',
+        'Working full-time as a Full Stack Developer for US-based Assistly Pro (Work From Home)',
 
-        'Providing technical consulting and solutions',
+        'Developing and maintaining custom web and mobile applications using modern full stack technologies',
 
-        'Managing full project lifecycle from design to deployment',
+        'Collaborating on remote, cross-functional teams to deliver scalable software solutions',
 
-        'Working with modern technologies and best practices'
+        'Managing and optimizing database designs, APIs, and front-end interfaces'
 
       ]
 
@@ -309,7 +351,7 @@ const PORTFOLIO_DATA = {
 
       company: 'Batangas State University TNEU - Alangilan Campus',
 
-      year: '2025 - PRESENT',
+      year: '2026 - PRESENT',
 
       details: [
 
@@ -352,12 +394,11 @@ const PORTFOLIO_DATA = {
   skills: [
 
     'HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Tailwind CSS',
-
-    'Flutter', 'Vite', 'Python', 'Django', 'PHP', 'WordPress',
+    , 'Vite', 'Python', 'Django', 'PHP', 'WordPress',
 
     'Nginx', 'MySQL', 'PostgreSQL', 'MongoDB', 'Git', 'Ubuntu', 'Firebase',
 
-    'Windsurf', 'Antigravity', 'Cursor', 'Visual Studio'
+    'Windsurf', 'Antigravity', 'Cursor', 'Visual Studio', 'Next.js', 'Convex'
 
   ],
 
@@ -485,7 +526,7 @@ const fadeUpVariant = {
 
   }
 
-};
+} as const;
 
 
 
@@ -655,52 +696,6 @@ const ProjectCarousel = ({ images, isOpen, onClose }: { images: any[], isOpen: b
 
       </motion.div>
 
-
-
-      {/* Lanyard Modal */}
-
-      <AnimatePresence>
-
-        {showLanyard && (
-
-          <motion.div
-
-            initial={{ opacity: 0 }}
-
-            animate={{ opacity: 1 }}
-
-            exit={{ opacity: 0 }}
-
-            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
-
-            onClick={() => setShowLanyard(false)}
-
-          >
-
-            <div className="relative w-full h-full" onClick={(e) => e.stopPropagation()}>
-
-              <button
-
-                onClick={() => setShowLanyard(false)}
-
-                className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 hover:bg-white/20 transition-colors"
-
-              >
-
-                <X size={20} />
-
-              </button>
-
-              <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
-
-            </div>
-
-          </motion.div>
-
-        )}
-
-      </AnimatePresence>
-
     </motion.div>
 
   );
@@ -835,32 +830,24 @@ const HomeScreen = ({ onNavigate, onOpenPhoto }: { onNavigate: (tab: TabId) => v
 
               disabled={false}
 
-            /> <br />
-
-            <ShinyText
-
-              text={PORTFOLIO_DATA.status}
-
-              speed={3}
-
-              delay={1}
-
-              color="#9ca3af"
-
-              shineColor="#ffffff"
-
-              spread={120}
-
-              direction="left"
-
-              yoyo={false}
-
-              pauseOnHover={false}
-
-              disabled={false}
-
             />
-
+            {PORTFOLIO_DATA.status && (
+              <>
+                <br />
+                <ShinyText
+                  text={PORTFOLIO_DATA.status}
+                  speed={3}
+                  delay={1}
+                  color="#9ca3af"
+                  shineColor="#ffffff"
+                  spread={120}
+                  direction="left"
+                  yoyo={false}
+                  pauseOnHover={false}
+                  disabled={false}
+                />
+              </>
+            )}
           </p>
 
           <p className="text-sm text-neutral-500 leading-relaxed max-w-[90%]">
@@ -1048,6 +1035,52 @@ const HomeScreen = ({ onNavigate, onOpenPhoto }: { onNavigate: (tab: TabId) => v
       {/* Speaker Bento — TRICK OR TECH */}
 
       <SpeakerBento />
+
+
+
+      {/* Lanyard Modal */}
+
+      <AnimatePresence>
+
+        {showLanyard && (
+
+          <motion.div
+
+            initial={{ opacity: 0 }}
+
+            animate={{ opacity: 1 }}
+
+            exit={{ opacity: 0 }}
+
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
+
+            onClick={() => setShowLanyard(false)}
+
+          >
+
+            <div className="relative w-full h-full" onClick={(e) => e.stopPropagation()}>
+
+              <button
+
+                onClick={() => setShowLanyard(false)}
+
+                className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 hover:bg-white/20 transition-colors"
+
+              >
+
+                <X size={20} />
+
+              </button>
+
+              <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
+
+            </div>
+
+          </motion.div>
+
+        )}
+
+      </AnimatePresence>
 
     </ScreenWrapper>
 
@@ -1372,25 +1405,25 @@ const ProjectsScreen = () => {
 
                   {project.images[0] ? (
 
-                  <div className="absolute inset-0 w-full h-full z-0">
+                    <div className="absolute inset-0 w-full h-full z-0">
 
-                    <img
+                      <img
 
-                      src={project.images[0]}
+                        src={project.images[0]}
 
-                      alt={project.title}
+                        alt={project.title}
 
-                      className="w-full h-full object-cover opacity-30 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 ease-out"
+                        className="w-full h-full object-cover opacity-30 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 ease-out"
 
-                    />
+                      />
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent" />
 
-                  </div>
+                    </div>
 
                   ) : (
 
-                  <div className="absolute inset-0 w-full h-full z-0 bg-gradient-to-br from-white/[0.03] to-transparent" />
+                    <div className="absolute inset-0 w-full h-full z-0 bg-gradient-to-br from-white/[0.03] to-transparent" />
 
                   )}
 
@@ -1486,6 +1519,8 @@ const ProfileScreen = () => {
 
       <motion.div variants={fadeUpVariant} className="px-2 mb-6">
 
+        <p className="micro-label text-neutral-400 mb-2">Career</p>
+
         <h2 className="text-2xl font-semibold tracking-tight text-white">Experience</h2>
 
         <p className="text-sm text-neutral-500 mt-1">Professional journey & skills.</p>
@@ -1493,30 +1528,49 @@ const ProfileScreen = () => {
       </motion.div>
 
 
+      <div className="flex flex-col gap-4">
 
-      <motion.div variants={fadeUpVariant} className="glass-card rounded-[2rem] p-6 mb-4">
+        {PORTFOLIO_DATA.experience.map((exp, idx) => (
 
-        <div className="relative border-l border-neutral-800 ml-2 flex flex-col gap-8">
+          <motion.div
 
-          {PORTFOLIO_DATA.experience.map((exp, idx) => (
+            key={idx}
 
-            <div key={idx} className="relative pl-6">
+            variants={fadeUpVariant}
 
-              <div className="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-neutral-400 ring-4 ring-[#0A0A0A]" />
+            className="rounded-[1.4rem] border border-white/10 bg-[#111111] p-5"
 
-              <p className="micro-label mb-1">{exp.year}</p>
+          >
 
-              <h4 className="text-base font-semibold text-white">{exp.role}</h4>
+            <div>
 
-              <p className="text-sm text-neutral-400 mb-4">{exp.company}</p>
+              <div className="flex items-start justify-between gap-3 mb-3">
 
-              <ul className="flex flex-col gap-2">
+                <div>
+
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-400 mb-1">{exp.year}</p>
+
+                  <h4 className="text-base font-semibold text-white leading-tight">{exp.role}</h4>
+
+                  <p className="text-xs text-neutral-400 mt-1">{exp.company}</p>
+
+                </div>
+
+                <div className="w-8 h-8 rounded-lg bg-black/40 border border-white/10 flex items-center justify-center text-neutral-300 shrink-0">
+
+                  <Briefcase size={14} />
+
+                </div>
+
+              </div>
+
+              <ul className="flex flex-col gap-2.5 pt-3 border-t border-white/10">
 
                 {exp.details.map((detail, dIdx) => (
 
-                  <li key={dIdx} className="text-xs text-neutral-500 leading-relaxed flex items-start gap-2">
+                  <li key={dIdx} className="text-xs text-neutral-300 leading-relaxed flex items-start gap-2.5">
 
-                    <CircleDot size={10} className="mt-1 flex-shrink-0 text-neutral-700" />
+                    <CircleDot size={10} className="mt-1 flex-shrink-0 text-neutral-500" />
 
                     <span>{detail}</span>
 
@@ -1528,11 +1582,11 @@ const ProfileScreen = () => {
 
             </div>
 
-          ))}
+          </motion.div>
 
-        </div>
+        ))}
 
-      </motion.div>
+      </div>
 
     </ScreenWrapper>
 
@@ -1556,47 +1610,43 @@ const CertificationsScreen = () => {
 
       </motion.div>
 
-
-
       <div className="flex flex-col gap-3">
 
         {PORTFOLIO_DATA.certifications.map((cert, idx) => (
 
-          <motion.div
+          <motion.article
 
             key={idx}
 
             variants={fadeUpVariant}
 
-            className="glass-card rounded-[1.5rem] p-5 flex flex-col gap-2 group hover:bg-white/[0.02] transition-colors"
+            className="rounded-2xl border border-white/10 bg-[#111111] p-4"
 
           >
 
-            <div className="flex justify-between items-start gap-4">
+            <div className="flex items-center justify-between gap-3 mb-3 pb-3 border-b border-white/10">
 
-              <div>
+              <div className="w-8 h-8 rounded-lg bg-black/40 border border-white/10 flex items-center justify-center text-neutral-300">
 
-                <h3 className="text-sm font-semibold text-white leading-snug mb-1">{cert.title}</h3>
-
-                <p className="text-xs text-neutral-400">{cert.issuer}</p>
+                <Award size={14} />
 
               </div>
 
-              <ExternalLink size={16} className="text-neutral-600 group-hover:text-white transition-colors flex-shrink-0" />
+              <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-400">{cert.date}</p>
 
             </div>
 
+            <h3 className="text-sm font-semibold text-white leading-snug mb-1.5">{cert.title}</h3>
 
+            <p className="text-xs text-neutral-400">{cert.issuer}</p>
 
-            <div className="flex items-center justify-between mt-2 pt-3 border-t border-white/5">
+            {cert.id && (
 
-              <p className="micro-label">{cert.date}</p>
+              <p className="font-mono text-[10px] text-neutral-500 mt-3 pt-3 border-t border-white/10">Credential ID: {cert.id}</p>
 
-              {cert.id && <p className="font-mono text-[10px] text-neutral-600">ID: {cert.id}</p>}
+            )}
 
-            </div>
-
-          </motion.div>
+          </motion.article>
 
         ))}
 
@@ -1736,7 +1786,7 @@ export default function App() {
 
             {tabs.map((tab) => {
 
-              const Icon = tab.icon;
+              const Icon = tab.icon as any;
 
               const isActive = activeTab === tab.id;
 
