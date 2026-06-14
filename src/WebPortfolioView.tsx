@@ -1212,27 +1212,19 @@ const CertificationsSection = () => {
 
     node: (
 
-      <article className="w-[min(86vw,1100px)] px-2 py-2 text-white">
+      <div className="flex items-baseline gap-2 font-bold px-2 py-1 text-white whitespace-nowrap">
 
-        <div className="flex items-center gap-4">
+        <h3 className="text-xl md:text-2xl font-extrabold tracking-tighter uppercase leading-none pr-3 border-r-2 border-white/20">
 
-          <Award size={16} className="text-white/70 shrink-0" />
+          {cert.title}
 
-          <h3 className="text-xl md:text-2xl font-extrabold tracking-tight leading-none whitespace-nowrap">
+        </h3>
 
-            {cert.title}
+        <p className="text-lg text-white/50 pl-1 uppercase md:tracking-wide">{cert.issuer}</p>
 
-          </h3>
+        <p className="font-mono text-xs text-white/30 ml-2">{cert.date}</p>
 
-          <p className="text-sm md:text-base font-bold text-white/75 whitespace-nowrap">{cert.issuer}</p>
-
-          <p className="font-mono text-[11px] uppercase tracking-widest text-white/55 whitespace-nowrap">{cert.date}</p>
-
-          {cert.id && <p className="font-mono text-[10px] text-white/50 whitespace-nowrap">{cert.id}</p>}
-
-        </div>
-
-      </article>
+      </div>
 
     ),
 
